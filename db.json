@@ -1,0 +1,109 @@
+{
+  "utilisateurs": [
+    {
+      "id": "543c",
+      "nom": "fall",
+      "prenom": "admin",
+      "email": "admin@gmail.com",
+      "telephone": "778902093",
+      "password": "admin123",
+      "id_role": "1",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1753358370/impjqb0d74s43jqepdnk.jpg",
+      "deleted": "false",
+      "deletedAt": null
+    },
+    {
+      "id": "0282",
+      "nom": "syyy",
+      "prenom": "mouhamed",
+      "email": "enseignant@gmail.com",
+      "telephone": "773632963",
+      "password": "enseignant123",
+      "id_role": "2",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1753365231/enzazbbp6zmnhc9j0ufo.png",
+      "deleted": "true"
+    },
+    {
+      "id": "151d",
+      "nom": "test",
+      "prenom": "test",
+      "email": "etudiant@gmail.com",
+      "telephone": "777777777",
+      "password": "etudiant123",
+      "id_role": "3",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1753365231/enzazbbp6zmnhc9j0ufo.png",
+      "deleted": false,
+      "deletedAt": null
+    },
+    {
+      "id": "1e00",
+      "nom": "Diop",
+      "prenom": "Soukeyna",
+      "telephone": "781556521",
+      "email": "soukey@gmail.com",
+      "password": "diop@123",
+      "id_role": "3",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1754497328/vnhrrqabbvbfezrglw11.jpg"
+    },
+    {
+      "id": "07a6",
+      "nom": "tall",
+      "prenom": "soda",
+      "email": "soda@gmail.com",
+      "telephone": "781556521",
+      "password": "soda123",
+      "image": "https://img.freepik.com/premium-photo/woman-checking-her-phone_53876-83216.jpg?uid=R136290033&ga=GA1.1.1421185707.1725292688&semt=ais_hybrid&w=740",
+      "id_role": "2",
+      "deleted": "false",
+      "deletedAt": null
+    },
+    {
+      "id": "ae0a",
+      "nom": "diop",
+      "prenom": "rama",
+      "email": "diop@gmail.com",
+      "telephone": "778902093",
+      "password": "diop123",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1754499286/mqx67nt48ednq2be1gls.webp",
+      "id_role": "2",
+      "deleted": "false",
+      "deletedAt": null
+    },
+    {
+      "id": "c279",
+      "nom": "Fama",
+      "prenom": "Diop",
+      "telephone": "767890999",
+      "email": "fama@gmail.com",
+      "password": "fama123",
+      "id_role": "3",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1754499421/bese8uslrxfybfwxfmlh.jpg"
+    },
+    {
+      "id": "1850",
+      "nom": "Niang",
+      "prenom": "Fatimata Binta",
+      "email": "fatima@gmail.com",
+      "telephone": "767298266",
+      "password": "mdp123",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1754517910/tnz2nlatvutivytgrg5q.webp",
+      "id_role": "2",
+      "deleted": "false",
+      "deletedAt": null
+    }
+  ],
+  "roles": [
+    {
+      "id": "1",
+      "libelle": "admin"
+    },
+    {
+      "id": "2",
+      "libelle": "enseignant"
+    },
+    {
+      "id": "3",
+      "libelle": "etudiant"
+    }
+  ]
+}
