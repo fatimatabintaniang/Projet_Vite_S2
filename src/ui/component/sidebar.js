@@ -9,6 +9,7 @@ export default class Sidebar {
 
   render() {
     const user = this.authSvc.getCurrentUser();
+    const currentHash = window.location.hash;
 
     if (!user) {
       this.root.innerHTML = "";
@@ -17,40 +18,76 @@ export default class Sidebar {
 
     let links = "";
 
+    const getActiveClass = (hash) => {
+      return currentHash === hash ? 'bg-[#ff6e88]' : 'hover:bg-[#9a1a33]';
+    };
+
     switch (user.id_role) {
       case "1": // Admin
         links = `
-          <a href="admin" class="mr-4 hover:text-[#ff6e88]">
-            <i class="fa fa-tachometer-alt text-xs"></i> Dashboard
+          <a href="#admin" class="flex items-center p-2 rounded-lg ${getActiveClass('#admin')} transition-colors">
+            <i class="fa fa-tachometer-alt mr-3 text-xs"></i>
+            <span>Dashboard</span>
           </a>
-          <a href="#" class="mr-4 hover:text-[#ff6e88]">
-            <i class="fa fa-book text-xs"></i> Lister les livres
+          <a href="#livres" class="flex items-center p-2 rounded-lg ${getActiveClass('#livres')} transition-colors">
+            <i class="fa fa-book mr-3 text-xs"></i>
+            <span>Lister les livres</span>
           </a>
-         
-          <a href="#" class="mr-4 hover:text-[#ff6e88]">
-            <i class="fa fa-users text-xs"></i> Lister les catégories
-            </a>
-          <a href="#" class="mr-4 hover:text-[#ff6e88]">
-            <i class="fa fa-file-alt text-xs"></i> Lister les mémoires
+          <a href="#categories" class="flex items-center p-2 rounded-lg ${getActiveClass('#categories')} transition-colors">
+            <i class="fa fa-tags mr-3 text-xs"></i>
+            <span>Lister les catégories</span>
           </a>
-          <a href="#add-enseignant" class="mr-4 hover:text-[#ff6e88]">
-            <i class="fa fa-chalkboard-teacher text-xs"></i> Lister les enseignants
+          <a href="#memoires" class="flex items-center p-2 rounded-lg ${getActiveClass('#memoires')} transition-colors">
+            <i class="fa fa-file-alt mr-3 text-xs"></i>
+            <span>Lister les mémoires</span>
           </a>
+          <a href="#add-enseignant" class="flex items-center p-2 rounded-lg ${getActiveClass('#enseignants')} transition-colors">
+            <i class="fa fa-chalkboard-teacher mr-3 text-xs"></i>
+            <span>Lister les enseignants</span>
+          </a>
+      
         `;
         break;
 
       case "2": // Enseignant
         links = `
-          <a href="#" class="mr-4 hover:text-blue-600">Catalogue</a>
-          <a href="#" class="mr-4 hover:text-blue-600">liste favorie</a>
-          <a href="#" class="mr-4 hover:text-blue-600">liste telechargement</a>
+          <a href="#enseignant" class="flex items-center p-2 rounded-lg ${getActiveClass('#enseignant')} transition-colors">
+            <i class="fa fa-home mr-3 text-xs"></i>
+            <span>Accueil</span>
+          </a>
+          <a href="#catalogue" class="flex items-center p-2 rounded-lg ${getActiveClass('#catalogue')} transition-colors">
+            <i class="fa fa-book-open mr-3 text-xs"></i>
+            <span>Catalogue</span>
+          </a>
+          <a href="#favoris" class="flex items-center p-2 rounded-lg ${getActiveClass('#favoris')} transition-colors">
+            <i class="fa fa-heart mr-3 text-xs"></i>
+            <span>Liste favoris</span>
+          </a>
+          <a href="#telechargements" class="flex items-center p-2 rounded-lg ${getActiveClass('#telechargements')} transition-colors">
+            <i class="fa fa-download mr-3 text-xs"></i>
+            <span>Téléchargements</span>
+          </a>
         `;
         break;
 
       case "3": // Etudiant
         links = `
-          <a href="client" class="mr-4 hover:text-blue-600">Dashboard Client</a>
-          <a href="articles" class="mr-4 hover:text-blue-600">Articles</a>
+          <a href="#etudiant" class="flex items-center p-2 rounded-lg ${getActiveClass('#etudiant')} transition-colors">
+            <i class="fa fa-home mr-3 text-xs"></i>
+            <span>Accueil</span>
+          </a>
+          <a href="#recherche" class="flex items-center p-2 rounded-lg ${getActiveClass('#recherche')} transition-colors">
+            <i class="fa fa-search mr-3 text-xs"></i>
+            <span>Recherche</span>
+          </a>
+          <a href="#mes-livres" class="flex items-center p-2 rounded-lg ${getActiveClass('#mes-livres')} transition-colors">
+            <i class="fa fa-bookmark mr-3 text-xs"></i>
+            <span>Mes livres</span>
+          </a>
+          <a href="#mes-demandes" class="flex items-center p-2 rounded-lg ${getActiveClass('#mes-demandes')} transition-colors">
+            <i class="fa fa-list-alt mr-3 text-xs"></i>
+            <span>Mes demandes</span>
+          </a>
         `;
         break;
 
@@ -64,28 +101,28 @@ export default class Sidebar {
           <div class="flex items-center justify-center p-4 border-b">
             <div class="text-xl text-[#870E24] font-bold p-5 bg-white rounded-3xl">GB</div>
           </div>
-          <nav class="flex flex-col space-y-5 px-4 py-6">
+          <nav class="flex flex-col space-y-2 px-4 py-6">
             ${links}
           </nav>
         </div>
 
-        <div class="p-4 border-t relative ">
+        <div class="p-4 border-t relative">
           <button id="profile-dropdown-btn" 
                   class="flex items-center gap-2 focus:outline-none w-full text-left" 
                   aria-haspopup="true" aria-expanded="false">
             ${user.image
-        ? `<img src="${user.image}" alt="image" class="w-8 h-8 rounded-full object-cover">`
-        : `<div class="bg-gray-200 w-8 h-8 rounded-full"></div>`
-      }
+              ? `<img src="${user.image}" alt="image" class="w-8 h-8 rounded-full object-cover">`
+              : `<div class="bg-gray-200 w-8 h-8 rounded-full"></div>`
+            }
             <div class="text-sm font-medium text-white">
               <span>${user.prenom} ${user.nom}</span>
             </div>
-            <svg class="w-4 h-4 ml-auto transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" >
+            <svg class="w-4 h-4 ml-auto transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
 
-          <div id="profile-dropdown" class="hidden absolute bottom-full mb-2   bg-white text-[#870E24]  border rounded shadow-md z-20">
+          <div id="profile-dropdown" class="hidden absolute bottom-full mb-2 bg-white text-[#870E24] border rounded shadow-md z-20">
             <button id="logoutBtn" class="w-full text-left px-4 py-2 hover:bg-[#ff6e88] hover:text-white transition-colors rounded">
               <i class="fa fa-sign-out-alt mr-2"></i>
               <span>Déconnexion</span>
@@ -110,8 +147,7 @@ export default class Sidebar {
     });
 
     profileBtn.addEventListener("click", (e) => {
-      e.stopPropagation(); // Empêche la propagation du clic
-
+      e.stopPropagation();
       const isHidden = dropdown.classList.contains("hidden");
       if (isHidden) {
         dropdown.classList.remove("hidden");
@@ -124,13 +160,17 @@ export default class Sidebar {
       }
     });
 
-    // Clic en dehors du dropdown pour fermer
     document.addEventListener("click", () => {
       if (!dropdown.classList.contains("hidden")) {
         dropdown.classList.add("hidden");
         profileBtn.setAttribute("aria-expanded", "false");
         arrowIcon.classList.remove("rotate-180");
       }
+    });
+
+    // Ajout d'un écouteur pour mettre à jour la classe active lors du changement de hash
+    window.addEventListener('hashchange', () => {
+      this.render(); // Re-rend le composant pour mettre à jour les classes active
     });
   }
 }

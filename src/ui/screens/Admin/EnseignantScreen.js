@@ -1,7 +1,7 @@
 import { CloudinaryClient } from "../../../services/Cloudinary.js";
 import {Modal} from "../../component/Modal.js";
 
-export default class AddEnseignantScreen {
+export default class EnseignantScreen {
   constructor(container) {
     this.cloudinary = new CloudinaryClient();
     this.state = {
@@ -77,20 +77,20 @@ export default class AddEnseignantScreen {
       }
     });
 
-    this.container.appendChild(this.modal);
+this.container.appendChild(this.modal.getElement());
 
     // Gestionnaires d'événements
-    document.getElementById("openModal").addEventListener("click", () => {
-      this.modal.classList.remove("hidden");
-    });
+document.getElementById("openModal").addEventListener("click", () => {
+  this.modal.getElement().classList.remove("hidden");
+});
 
-    document.getElementById("closeModal").addEventListener("click", () => {
-      this.modal.classList.add("hidden");
-      this.state.imagePreview = null;
-    });
+document.getElementById("closeModal").addEventListener("click", () => {
+  this.modal.getElement().classList.add("hidden");
+  this.state.imagePreview = null;
+});
 
-    const imageInput = this.modal.querySelector('[name="image"]');
-    const imagePreview = this.modal.querySelector("#image-preview");
+const imageInput = this.modal.getElement().querySelector('[name="image"]');
+const imagePreview = this.modal.getElement().querySelector("#image-preview");
 
     imageInput.addEventListener("change", (e) => {
       const file = e.target.files[0];
@@ -104,7 +104,7 @@ export default class AddEnseignantScreen {
       }
     });
 
-    this.modal.querySelector("#addForm").addEventListener("submit", async (e) => {
+    this.modal.getElement().querySelector("#addForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const form = e.target;
       const formData = new FormData(form);
@@ -143,7 +143,7 @@ export default class AddEnseignantScreen {
           body: JSON.stringify(newUser)
         });
 
-        this.modal.classList.add("hidden");
+        this.modal.getElement().classList.add("hidden");
         location.reload();
       } catch (error) {
         alert("Erreur lors de l'ajout.");

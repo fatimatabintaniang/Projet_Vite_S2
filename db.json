@@ -21,7 +21,7 @@
       "password": "enseignant123",
       "id_role": "2",
       "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1753365231/enzazbbp6zmnhc9j0ufo.png",
-      "deleted": "true"
+      "deleted": "false"
     },
     {
       "id": "151d",
@@ -90,6 +90,18 @@
       "id_role": "2",
       "deleted": "false",
       "deletedAt": null
+    },
+    {
+      "id": "57d0",
+      "nom": "Niang",
+      "prenom": "Latyr",
+      "email": "latyr@gmail.com",
+      "telephone": "776900099",
+      "password": "passer123",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1754869437/vi860lvj3ixqeeizi6cj.jpg",
+      "id_role": "2",
+      "deleted": "false",
+      "deletedAt": null
     }
   ],
   "roles": [
@@ -104,6 +116,140 @@
     {
       "id": "3",
       "libelle": "etudiant"
+    }
+  ],
+  "livres": [
+    {
+      "id": 1,
+      "titre": "Introduction à l'Algorithmique",
+      "auteur": "Thomas Cormen",
+      "format": "PDF",
+      "chemin_fichier": "/uploads/livres/algo.pdf",
+      "type": "LIVRE_COURS",
+      "categorieId": 1,
+      "niveauId": 2,
+      "matiereId": 3,
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1753358370/impjqb0d74s43jqepdnk.jpg",
+      "createdAt": "2023-05-15T10:30:00Z"
+    },
+    {
+      "id": 2,
+      "titre": "Méthodes Numériques Appliquées",
+      "auteur": "Jean-Pierre Demailly",
+      "format": "EPUB",
+      "chemin_fichier": "/uploads/livres/methodes-num.epub",
+      "type": "LIVRE_COURS",
+      "categorieId": 2,
+      "niveauId": 3,
+      "matiereId": 1,
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1754497328/vnhrrqabbvbfezrglw11.jpg",
+      "createdAt": "2023-06-01T12:00:00Z"
+    }
+  ],
+  "telechargements": [
+    {
+      "id": "1",
+      "id_livre": "1",
+      "id_utilisateur": "151d",
+      "date_telechargement": "2023-10-01T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "id_livre": "2",
+      "id_utilisateur": "0282",
+      "date_telechargement": "2023-10-02T11:00  :00Z"
+    },
+    {
+      "id": "3",
+      "id_livre": "1",
+      "id_utilisateur": "543c",
+      "date_telechargement": "2023-10-03T12:30:00Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "nom": "Informatique"
+    },
+    {
+      "id": 2,
+      "nom": "Mathématiques"
+    },
+    {
+      "id": 3,
+      "nom": "IA"
+    },
+    {
+      "id": 4,
+      "nom": "Médecine"
+    }
+  ],
+  "niveaux": [
+    {
+      "id": 1,
+      "libelle": "Licence 1"
+    },
+    {
+      "id": 2,
+      "libelle": "Licence 2"
+    },
+    {
+      "id": 3,
+      "libelle": "Licence 3"
+    },
+    {
+      "id": 4,
+      "libelle": "Master"
+    }
+  ],
+  "matieres": [
+    {
+      "id": 1,
+      "nom_matiere": "Analyse Numérique"
+    },
+    {
+      "id": 2,
+      "nom_matiere": "Machine Learning"
+    },
+    {
+      "id": 3,
+      "nom_matiere": "Algorithmique"
+    },
+    {
+      "id": 4,
+      "nom_matiere": "Physique Moderne"
+    },
+    {
+      "id": 5,
+      "nom_matiere": "Systèmes Intelligents"
+    }
+  ],
+  "Memoire": [
+    {
+      "id": 1,
+      "titre": "Exemple de mémoire",
+      "auteur": "Jean Dupont",
+      "annee": 2023,
+      "specialite": "Informatique",
+      "fichier_memoire": "/chemin/vers/fichier.pdf",
+      "statut": "valide",
+      "utilisateurId": "151d",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1754499421/bese8uslrxfybfwxfmlh.jpg",
+      "deleted": false,
+      "deletedAt": null
+    },
+    {
+      "id": 2,
+      "titre": "Autre mémoire",
+      "auteur": "Marie Martin",
+      "annee": 2024,
+      "specialite": "Mathématiques",
+      "fichier_memoire": "/chemin/vers/autre_fichier.pdf",
+      "statut": "en_attente",
+      "utilisateurId": "1e00",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1754517910/tnz2nlatvutivytgrg5q.webp",
+      "deleted": false,
+      "deletedAt": null
     }
   ]
 }

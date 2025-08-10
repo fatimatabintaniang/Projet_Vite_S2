@@ -3,8 +3,11 @@ import Navbar from "../ui/component/navbar.js";
 import { AuthService } from "../services/authService.js";
 import LoginScreen from "../ui/screens/Security/loginScreen.js";
 import RegisterScreen from "../ui/screens/Security/RegisterScreen.js";
-import AddEnseignantScreen from "../ui/screens/Admin/AddEnseignantScreen.js";
-
+import EnseignantScreen from "../ui/screens/Admin/EnseignantScreen.js";
+import DashboardScreen from "../ui/screens/Admin/DashboardScreen.js";
+import { LivresScreen } from "../ui/screens/Admin/LivresScreen.js";
+import { CategorieScreen } from "../ui/screens/Admin/CategorieScreen.js";
+import { MemoireScreen } from "../ui/screens/Admin/MemoireScreen.js";
 export default class Router {
   constructor(appRoot) {
     this.appRoot = appRoot;
@@ -51,12 +54,11 @@ export default class Router {
   }
 
   renderLayout(user) {
-    // Structure HTML principale avec sidebar, navbar, content
     this.appRoot.innerHTML = `
       <div id="sidebar" class=""></div>
       <div class="flex flex-col flex-1">
         <div id="navbar"></div>
-        <div id="content" class="flex-1 p-4 overflow-auto"></div>
+        <div id="content" class="flex-1 p-4 overflow-auto "></div>
       </div>
     `;
 
@@ -78,7 +80,24 @@ export default class Router {
         new RegisterScreen(content).render();
         break;
       case "#admin":
-        content.innerHTML = "<h1 class='text-2xl'>Espace Administrateur</h1>";
+         new DashboardScreen(content).render();
+        break;
+      case "#livres":
+        new LivresScreen(content).render();
+        content.innerHTML = "<h1 class='text-2xl'>Espace Livre</h1>";
+        break; 
+      case "#memoires":
+        new MemoireScreen(content).render();
+        content.innerHTML = "<h1 class='text-2xl'>Espace Mémoire</h1>";
+        break;
+      // case "#categories":
+      //   content.innerHTML = "<h1 class='text-2xl'>Espace Catégorie</h1>";
+      //   break;
+      case "#categories":
+  new CategorieScreen(content).render();
+  break;
+      case "#memoires":
+        content.innerHTML = "<h1 class='text-2xl'>Espace Mémoire</h1>";
         break;
       case "#enseignant":
         content.innerHTML = "<h1 class='text-2xl'>Espace Enseignant</h1>";
@@ -88,7 +107,7 @@ export default class Router {
         break;
       case "#add-enseignant":
         if (user?.id_role === "1") {
-          new AddEnseignantScreen(content).render();
+          new EnseignantScreen(content).render();
         } else {
           content.innerHTML = "<p class='text-red-500'>Accès non autorisé.</p>";
         }
