@@ -48,5 +48,12 @@ export class ApiClient {
 
   return r.json(); // ici on est sûr que le contenu est du JSON
 }
-  
+async delete(p = "", id) {
+  const r = await fetch(this._url(`${p}/${id}`), {
+    method: "DELETE"
+  });
+  this._check(r, "DELETE");
+  return r.json().catch(() => ({})); 
+}
+
 }

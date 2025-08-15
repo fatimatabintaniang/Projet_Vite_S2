@@ -12,10 +12,24 @@ export class Modal {
       </div>
     `;
 
+    this.onCloseCallback = onClose;
+
     this.modal.querySelector("#close-modal").addEventListener("click", () => {
-      this.modal.classList.add("hidden");
-      onClose?.();
+      this.close();
     });
+  }
+
+  open() {
+    this.modal.classList.remove("hidden");
+    return this; 
+  }
+
+  close() {
+    this.modal.classList.add("hidden");
+    if (this.onCloseCallback) {
+      this.onCloseCallback();
+    }
+    return this; // Permet le chaînage
   }
 
   getElement() {

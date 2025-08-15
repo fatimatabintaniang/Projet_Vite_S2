@@ -19,7 +19,7 @@ export default class LivreService {
     async getLivreById(id) {
         try {
             const response = await this.api.get(`livres/${id}?_expand=categorie&_expand=niveau&_expand=matiere`);
-            return response.data;
+            return response;
         } catch (error) {
             console.error("Erreur getLivreById:", error);
             throw error;
@@ -29,7 +29,7 @@ export default class LivreService {
     async createLivre(livreData) {
         try {
             const response = await this.api.post('livres', livreData);
-            return response.data;
+            return response;
         } catch (error) {
             console.error("Erreur createLivre:", error);
             throw error;
@@ -39,7 +39,7 @@ export default class LivreService {
     async updateLivre(id, livreData) {
         try {
             const response = await this.api.put(`livres/${id}`, livreData);
-            return response.data;
+            return response;
         } catch (error) {
             console.error("Erreur updateLivre:", error);
             throw error;
@@ -49,7 +49,7 @@ export default class LivreService {
     async deleteLivre(id) {
         try {
             const response = await this.api.delete(`livres/${id}`);
-            return response.data;
+            return response;
         } catch (error) {
             console.error("Erreur deleteLivre:", error);
             throw error;
@@ -59,7 +59,7 @@ export default class LivreService {
     async getCategories() {
         try {
             const response = await this.api.get('categories');
-            return response.data;
+            return response;
         } catch (error) {
             console.error("Erreur getCategories:", error);
             throw error;
@@ -69,7 +69,7 @@ export default class LivreService {
     async getNiveaux() {
         try {
             const response = await this.api.get('niveaux');
-            return response.data;
+            return response;
         } catch (error) {
             console.error("Erreur getNiveaux:", error);
             throw error;
@@ -79,12 +79,32 @@ export default class LivreService {
     async getMatieres() {
         try {
             const response = await this.api.get('matieres');
-            return response.data;
+            return response;
         } catch (error) {
             console.error("Erreur getMatieres:", error);
             throw error;
         }
     }
+
+async getTypes() {
+    try {
+        const response = await this.api.get('types');
+        return response;
+    } catch (error) {
+        console.error("Erreur getTypes:", error);
+        throw error;
+    }
+}
+
+async getFormats() {
+    try {
+        const response = await this.api.get('formats');
+        return response;
+    } catch (error) {
+        console.error("Erreur getFormats:", error);
+        throw error;
+    }
+}
 
     async uploadImage(file) {
         // Dans une vraie application, vous utiliseriez un service comme Cloudinary
@@ -100,7 +120,7 @@ export default class LivreService {
     async getTotalLivres() {
         try {
             const response = await this.api.get('livres');
-            return response.data.length; 
+            return response.length; 
         } catch (error) {
             console.error("Erreur getTotalLivres:", error);
             return 0;

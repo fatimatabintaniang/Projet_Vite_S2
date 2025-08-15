@@ -8,50 +8,50 @@ export default class CategorieService {
   async getAllCategories() {
     try {
       const response = await this.api.get('categories');
-      return response.data;
+      return response.data || [];
     } catch (error) {
       console.error("Erreur getAllCategories:", error);
-      throw error;
-    }
-  }
-
-  async getCategoryById(id) {
-    try {
-      const response = await this.api.get(`categories/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error("Erreur getCategoryById:", error);
-      throw error;
+      throw new Error("Impossible de charger les catégories. Veuillez réessayer.");
     }
   }
 
   async createCategory(categoryData) {
     try {
       const response = await this.api.post('categories', categoryData);
-      return response.data;
+      return response;
     } catch (error) {
       console.error("Erreur createCategory:", error);
-      throw error;
+      throw new Error("Erreur lors de la création de la catégorie.");
     }
   }
 
   async updateCategory(id, categoryData) {
     try {
-      const response = await this.api.put(`categories/${id}`, categoryData);
-      return response.data;
+      const response = await this.api.put('categories', id, categoryData);
+      return response;
     } catch (error) {
       console.error("Erreur updateCategory:", error);
-      throw error;
+      throw new Error("Erreur lors de la modification de la catégorie.");
     }
   }
 
-  async deleteCategory(id) {
+  async softDeleteCategory(id) {
     try {
-      const response = await this.api.delete(`categories/${id}`);
-      return response.data;
+      const response = await this.api.patch('categories', id, { deleted: true });
+      return response;
     } catch (error) {
-      console.error("Erreur deleteCategory:", error);
-      throw error;
+      console.error("Erreur softDeleteCategory:", error);
+      throw new Error("Erreur lors de la suppression de la catégorie.");
+    }
+  }
+
+  async restoreCategory(id) {
+    try {
+      const response = await this.api.patch('categories', id, { deleted: false });
+      return response;
+    } catch (error) {
+      console.error("Erreur restoreCategory:", error);
+      throw new Error("Erreur lors de la restauration de la catégorie.");
     }
   }
 }

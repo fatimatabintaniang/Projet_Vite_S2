@@ -6,8 +6,8 @@ export class CategorieScreen {
   constructor(container) {
     this.container = container;
     this.categorieService = new CategorieService();
+    this.categories = [];
     this.init();
-    this.categories = []; 
   }
 
   async init() {
@@ -17,10 +17,11 @@ export class CategorieScreen {
 
   async loadCategories() {
     try {
-      this.categories = await this.categorieService.getAllCategories();
+      let data = await this.categorieService.getAllCategories();
+      this.categories = Array.isArray(data) ? data : [];
       this.render();
     } catch (error) {
-       this.categories = [];
+      this.categories = [];
       this.showError(error.message);
     }
   }
@@ -34,7 +35,6 @@ export class CategorieScreen {
             + Ajouter
           </button>
         </div>
-        
         <div class="overflow-x-auto">
           <table class="min-w-full bg-white rounded-lg overflow-hidden">
             <thead class="bg-gray-100">
@@ -46,16 +46,16 @@ export class CategorieScreen {
             </thead>
             <tbody class="divide-y divide-gray-200">
               ${this.categories.map(cat => `
-                <tr>
+                <tr class="${cat.deleted ? 'opacity-50' : ''}">
                   <td class="py-3 px-4">${cat.id}</td>
                   <td class="py-3 px-4">${cat.nom}</td>
                   <td class="py-3 px-4 text-right space-x-2">
-                    <button data-id="${cat.id}" class="edit-btn px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600">
-                      Modifier
-                    </button>
-                    <button data-id="${cat.id}" class="delete-btn px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
-                      Supprimer
-                    </button>
+                    ${!cat.deleted ? `
+                      <button data-id="${cat.id}" class="edit-btn px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600">Modifier</button>
+                      <button data-id="${cat.id}" class="delete-btn px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">Supprimer</button>
+                    ` : `
+                      <button data-id="${cat.id}" class="restore-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Restaurer</button>
+                    `}
                   </td>
                 </tr>
               `).join('')}
@@ -64,86 +64,94 @@ export class CategorieScreen {
         </div>
       </div>
     `;
+
+    this.setupEventListeners();
   }
 
   setupEventListeners() {
-    // Bouton Ajouter
-    this.container.querySelector('#add-category')?.addEventListener('click', () => {
-      this.showCategoryForm();
-    });
+    this.container.querySelector('#add-category')?.addEventListener('click', () => this.showCategoryForm());
 
-    // Boutons Modifier
     this.container.querySelectorAll('.edit-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', e => {
         const id = e.target.dataset.id;
         const category = this.categories.find(c => c.id == id);
         this.showCategoryForm(category);
       });
     });
 
-    // Boutons Supprimer
     this.container.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.addEventListener('click', async (e) => {
+      btn.addEventListener('click', async e => {
         const id = e.target.dataset.id;
         if (await confirm("Voulez-vous vraiment supprimer cette catégorie ?")) {
-          try {
-            await this.categorieService.deleteCategory(id);
-            await this.loadCategories();
-          } catch (error) {
-            this.showError(error.message);
-          }
+          await this.categorieService.softDeleteCategory(id);
+          await this.loadCategories();
         }
+      });
+    });
+
+    this.container.querySelectorAll('.restore-btn').forEach(btn => {
+      btn.addEventListener('click', async e => {
+        const id = e.target.dataset.id;
+        await this.categorieService.restoreCategory(id);
+        await this.loadCategories();
       });
     });
   }
 
   showCategoryForm(category = null) {
-    const form = document.createElement('form');
-    form.className = 'space-y-4 p-4';
-    
-    form.innerHTML = `
-      <div>
-        <label class="block text-sm font-medium mb-1">Nom de la catégorie</label>
-        <input type="text" name="nom" value="${category?.nom || ''}" 
-               class="w-full p-2 border rounded" required />
-      </div>
-      <div class="flex justify-end space-x-2">
-        <button type="button" id="cancel-form" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
-          Annuler
-        </button>
-        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-          ${category ? 'Modifier' : 'Ajouter'}
-        </button>
-      </div>
-    `;
-
     const modal = new Modal({
       title: category ? 'Modifier Catégorie' : 'Nouvelle Catégorie',
-      content: form
+      content: `
+        <form id="category-form" class="space-y-4 p-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">
+              Nom de la catégorie <span class="text-red-500">*</span>
+            </label>
+            <input type="text" name="nom" value="${category?.nom || ''}" 
+                   class="w-full p-2 border rounded" required minlength="2" maxlength="50" />
+            <p class="text-red-500 text-sm mt-1 hidden" id="nom-error">
+              Le nom doit contenir entre 2 et 50 caractères
+            </p>
+          </div>
+          <div class="flex justify-end space-x-2">
+            <button type="button" id="cancel-form" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Annuler</button>
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+              ${category ? 'Modifier' : 'Ajouter'}
+            </button>
+          </div>
+        </form>
+      `
     });
 
+    document.body.appendChild(modal.getElement());
     modal.open();
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = {
-        nom: form.nom.value.trim()
-      };
+    const formEl = modal.getElement().querySelector('#category-form');
+    const nomInput = formEl.querySelector('input[name="nom"]');
+    const nomError = formEl.querySelector('#nom-error');
 
-      try {
-        if (category) {
-          await this.categorieService.updateCategory(category.id, formData);
-        } else {
-          await this.categorieService.createCategory(formData);
-        }
-        modal.close();
-        await this.loadCategories();
-      } catch (error) {
-        alert(`Erreur: ${error.message}`);
-      }
+    nomInput.addEventListener('input', () => {
+      nomError.classList.toggle('hidden', nomInput.validity.valid);
     });
 
-    form.querySelector('#cancel-form').addEventListener('click', () => modal.close());
+    formEl.addEventListener('submit', async e => {
+      e.preventDefault();
+      if (!nomInput.validity.valid) {
+        nomError.classList.remove('hidden');
+        return;
+      }
+
+      if (category) {
+        await this.categorieService.updateCategory(category.id, { nom: nomInput.value.trim() });
+      } else {
+        await this.categorieService.createCategory({ nom: nomInput.value.trim(), deleted: false });
+      }
+
+      modal.close();
+      await this.loadCategories();
+    });
+
+    formEl.querySelector('#cancel-form').addEventListener('click', () => modal.close());
   }
 
   showError(message) {
@@ -151,14 +159,9 @@ export class CategorieScreen {
       <div class="p-6 bg-red-50 text-red-600 rounded-lg">
         <p class="font-medium">Erreur:</p>
         <p>${message}</p>
-        <button id="retry-btn" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded">
-          Réessayer
-        </button>
+        <button id="retry-btn" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded">Réessayer</button>
       </div>
     `;
-    
-    this.container.querySelector('#retry-btn')?.addEventListener('click', () => {
-      this.loadCategories();
-    });
+    this.container.querySelector('#retry-btn')?.addEventListener('click', () => this.loadCategories());
   }
 }

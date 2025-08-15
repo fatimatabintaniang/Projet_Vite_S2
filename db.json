@@ -102,6 +102,18 @@
       "id_role": "2",
       "deleted": "false",
       "deletedAt": null
+    },
+    {
+      "id": "89ef",
+      "nom": "Niang",
+      "prenom": "khadim",
+      "email": "kha@gmail.com",
+      "telephone": "775232805",
+      "password": "passer123",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1754870374/rdnil6ed8mkjadzdzmmh.jpg",
+      "id_role": "2",
+      "deleted": "false",
+      "deletedAt": null
     }
   ],
   "roles": [
@@ -123,9 +135,9 @@
       "id": 1,
       "titre": "Introduction à l'Algorithmique",
       "auteur": "Thomas Cormen",
-      "format": "PDF",
+      "id_format": 1,
+      "id_type": 1,
       "chemin_fichier": "/uploads/livres/algo.pdf",
-      "type": "LIVRE_COURS",
       "categorieId": 1,
       "niveauId": 2,
       "matiereId": 3,
@@ -136,9 +148,9 @@
       "id": 2,
       "titre": "Méthodes Numériques Appliquées",
       "auteur": "Jean-Pierre Demailly",
-      "format": "EPUB",
+      "id_format": 2,
+      "id_type": 1,
       "chemin_fichier": "/uploads/livres/methodes-num.epub",
-      "type": "LIVRE_COURS",
       "categorieId": 2,
       "niveauId": 3,
       "matiereId": 1,
@@ -168,20 +180,36 @@
   ],
   "categories": [
     {
-      "id": 1,
-      "nom": "Informatique"
+      "nom": "Informatique",
+      "id": "1"
     },
     {
-      "id": 2,
-      "nom": "Mathématiques"
+      "id": "2",
+      "nom": "Mathématiques",
+      "deleted": false,
+      "deletedAt": null
     },
     {
-      "id": 3,
-      "nom": "IA"
+      "id": "3",
+      "nom": "IA",
+      "deleted": false,
+      "deletedAt": null
     },
     {
-      "id": 4,
-      "nom": "Médecine"
+      "id": "b196",
+      "nom": "Fatima",
+      "deleted": false,
+      "deletedAt": null
+    },
+    {
+      "nom": "Marieeeeeeeeeeeeeeeeeeeeee",
+      "id": "424d",
+      "deleted": true
+    },
+    {
+      "id": "9d9a",
+      "nom": "bbbbbbbbbb",
+      "deleted": true
     }
   ],
   "niveaux": [
@@ -250,6 +278,34 @@
       "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1754517910/tnz2nlatvutivytgrg5q.webp",
       "deleted": false,
       "deletedAt": null
+    }
+  ],
+  "types": [
+    {
+      "id": 1,
+      "libelle": "Livre de cours"
+    },
+    {
+      "id": 2,
+      "libelle": "Livre d'exercices"
+    },
+    {
+      "id": 3,
+      "libelle": "Mémoire"
+    }
+  ],
+  "formats": [
+    {
+      "id": 1,
+      "extension": "PDF"
+    },
+    {
+      "id": 2,
+      "extension": "EPUB"
+    },
+    {
+      "id": 3,
+      "extension": "DOCX"
     }
   ]
 }

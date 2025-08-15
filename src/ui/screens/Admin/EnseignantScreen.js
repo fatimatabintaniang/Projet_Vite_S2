@@ -81,11 +81,11 @@ this.container.appendChild(this.modal.getElement());
 
     // Gestionnaires d'événements
 document.getElementById("openModal").addEventListener("click", () => {
-  this.modal.getElement().classList.remove("hidden");
+ this.modal.open()
 });
 
 document.getElementById("closeModal").addEventListener("click", () => {
-  this.modal.getElement().classList.add("hidden");
+  this.modal.close();
   this.state.imagePreview = null;
 });
 

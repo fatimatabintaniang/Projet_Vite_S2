@@ -84,11 +84,9 @@ export default class Router {
         break;
       case "#livres":
         new LivresScreen(content).render();
-        content.innerHTML = "<h1 class='text-2xl'>Espace Livre</h1>";
         break; 
       case "#memoires":
         new MemoireScreen(content).render();
-        content.innerHTML = "<h1 class='text-2xl'>Espace Mémoire</h1>";
         break;
       // case "#categories":
       //   content.innerHTML = "<h1 class='text-2xl'>Espace Catégorie</h1>";
