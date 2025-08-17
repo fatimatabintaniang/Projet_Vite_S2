@@ -1,3 +1,4 @@
+// src/services/TelechargementService.js
 import { ApiClient } from "../data/Api-Client.js";
 
 export default class TelechargementService {
@@ -5,15 +6,49 @@ export default class TelechargementService {
         this.api = new ApiClient(baseUrl);
     }
 
-    async getTotalTelechargements() {
+    
+    async getUserDownloadsCount(userId) {
         try {
-            const response = await this.api.get('telechargements');
-            return response.data.length; 
+            const response = await this.api.get(`telechargements?id_utilisateur=${userId}`);
+            return response.data.length;
         } catch (error) {
-            console.error("Erreur getTotalTelechargements:", error);
+            console.error("Erreur getUserDownloadsCount:", error);
             return 0;
         }
     }
 
- 
+    async getUserDownloads(userId) {
+        try {
+            const response = await this.api.get(`telechargements?id_utilisateur=${userId}&_expand=livre`);
+            return response.data;
+        } catch (error) {
+            console.error("Erreur getUserDownloads:", error);
+            return [];
+        }
+    }
+
+async enregistrerTelechargement(livreId, userId) {
+    try {
+        const response = await this.api.post('telechargements', {
+            id_livre: livreId,
+            id_utilisateur: userId,
+            date_telechargement: new Date().toISOString()
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Erreur enregistrerTelechargement:", error);
+        throw error;
+    }
+}
+
+async getTotalTelechargements() {
+    try {
+       
+        const allDownloads = await this.api.get('telechargements');
+        return allDownloads.data.length;
+    } catch (error) {
+        console.error("Erreur getTotalTelechargements:", error);
+        return 0; // Valeur par défaut en cas d'erreur
+    }
+}
 }

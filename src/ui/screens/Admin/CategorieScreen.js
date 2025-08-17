@@ -7,12 +7,43 @@ export class CategorieScreen {
     this.container = container;
     this.categorieService = new CategorieService();
     this.categories = [];
+
+    this.container.addEventListener('click', async (e) => {
+      const editBtn = e.target.closest('.edit-btn');
+      const deleteBtn = e.target.closest('.delete-btn');
+      const restoreBtn = e.target.closest('.restore-btn');
+      const addBtn = e.target.closest('#add-category');
+
+      if (editBtn) {
+        const id = editBtn.dataset.id;
+        const category = this.categories.find(c => c.id == id);
+        this.showCategoryForm(category);
+      }
+
+      if (deleteBtn) {
+        const id = deleteBtn.dataset.id;
+        if (await confirm("Voulez-vous vraiment supprimer cette catégorie ?")) {
+          await this.categorieService.softDeleteCategory(id);
+          await this.loadCategories();
+        }
+      }
+
+      if (restoreBtn) {
+        const id = restoreBtn.dataset.id;
+        await this.categorieService.restoreCategory(id);
+        await this.loadCategories();
+      }
+
+      if (addBtn) {
+        this.showCategoryForm();
+      }
+    });
+
     this.init();
   }
 
   async init() {
     await this.loadCategories();
-    this.setupEventListeners();
   }
 
   async loadCategories() {
@@ -31,7 +62,7 @@ export class CategorieScreen {
       <div class="p-6">
         <div class="flex justify-between items-center mb-6">
           <h1 class="text-2xl font-bold">Gestion des Catégories</h1>
-          <button id="add-category" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+          <button id="add-category" class="px-4 py-2 bg-[#873A0E] text-white rounded-lg hover:bg-[#873A0E] transition">
             + Ajouter
           </button>
         </div>
@@ -64,38 +95,6 @@ export class CategorieScreen {
         </div>
       </div>
     `;
-
-    this.setupEventListeners();
-  }
-
-  setupEventListeners() {
-    this.container.querySelector('#add-category')?.addEventListener('click', () => this.showCategoryForm());
-
-    this.container.querySelectorAll('.edit-btn').forEach(btn => {
-      btn.addEventListener('click', e => {
-        const id = e.target.dataset.id;
-        const category = this.categories.find(c => c.id == id);
-        this.showCategoryForm(category);
-      });
-    });
-
-    this.container.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.addEventListener('click', async e => {
-        const id = e.target.dataset.id;
-        if (await confirm("Voulez-vous vraiment supprimer cette catégorie ?")) {
-          await this.categorieService.softDeleteCategory(id);
-          await this.loadCategories();
-        }
-      });
-    });
-
-    this.container.querySelectorAll('.restore-btn').forEach(btn => {
-      btn.addEventListener('click', async e => {
-        const id = e.target.dataset.id;
-        await this.categorieService.restoreCategory(id);
-        await this.loadCategories();
-      });
-    });
   }
 
   showCategoryForm(category = null) {
@@ -141,14 +140,17 @@ export class CategorieScreen {
         return;
       }
 
-      if (category) {
-        await this.categorieService.updateCategory(category.id, { nom: nomInput.value.trim() });
-      } else {
-        await this.categorieService.createCategory({ nom: nomInput.value.trim(), deleted: false });
+      try {
+        if (category) {
+          await this.categorieService.updateCategory(category.id, { nom: nomInput.value.trim() });
+        } else {
+          await this.categorieService.createCategory({ nom: nomInput.value.trim(), deleted: false });
+        }
+        modal.close();
+        await this.loadCategories();
+      } catch (error) {
+        alert(`Erreur: ${error.message}`);
       }
-
-      modal.close();
-      await this.loadCategories();
     });
 
     formEl.querySelector('#cancel-form').addEventListener('click', () => modal.close());

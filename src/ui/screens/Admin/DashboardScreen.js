@@ -14,6 +14,8 @@ export default class DashboardScreen{
   async render() {
     this.container.innerHTML = this.getHTMLSkeleton();
     await this.renderStats();
+    await this.loadMemoireStats();
+    await this.loadDownloadStats();
     
   }
 
@@ -110,109 +112,62 @@ export default class DashboardScreen{
 
           <!-- Two Column Layout -->
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Recent Activity (2/3 width) -->
-            <div class="lg:col-span-2">
-              <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-200">
-                  <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
-                    </svg>
-                    Nombre de consultations par mois
-                  </h2>
-                </div>
-                <div class="overflow-x-auto">
-                  <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                      <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Utilisateur</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Heure</th>
-                      </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                      <tr class="hover:bg-gray-50 transition-colors duration-150">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          <div class="flex items-center">
-                            <div class="flex-shrink-0 h-10 w-10">
-                              <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                            </div>
-                            <div class="ml-4">
-                              <div class="text-sm font-medium text-gray-900">Fatimata Binta</div>
-                              <div class="text-sm text-gray-500">niang@gmail.com</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                            Création de rôle
-                          </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10:45 AM</td>
-                      </tr>
-                      <tr class="hover:bg-gray-50 transition-colors duration-150">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          <div class="flex items-center">
-                            <div class="flex-shrink-0 h-10 w-10">
-                              <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                            </div>
-                            <div class="ml-4">
-                              <div class="text-sm font-medium text-gray-900">Mamy Diallo</div>
-                              <div class="text-sm text-gray-500">mamy@gmail.com</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                            Modification permission
-                          </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">09:30 AM</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="px-6 py-4 border-t border-gray-200 bg-gray-50 text-right">
-                  <button class="text-sm font-medium text-blue-600 hover:text-blue-500">
-                    Voir toute l'activité &rarr;
-                  </button>
-                </div>
-              </div>
-            </div>
+<div class="lg:col-span-2">
+  <div class="bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+        </svg>
+        Statistiques sur les mémoires déposés
+      </h2>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Année</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Spécialité</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre de mémoires</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dernier dépôt</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200" id="memoireStatsBody">
+    <tr>
+        <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">
+            Chargement des données...
+        </td>
+    </tr>
+</tbody>
+      </table>
+    </div>
+    <div class="px-6 py-4 border-t border-gray-200 bg-gray-50 text-right">
+      <button class="text-sm font-medium text-blue-600 hover:text-blue-500">
+        Voir toutes les statistiques &rarr;
+      </button>
+    </div>
+  </div>
+</div>
 
             <!-- Quick Actions (1/3 width) -->
             <div class="space-y-6">
-              <!-- Quick Actions Card -->
-              <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-200">
-                  <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-purple-500" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 5a1 1 0 10-2 0v4a1 1 0 001 1h1a1 1 0 100-2h-1V7zM11 13h2v2h-2v-2z" clip-rule="evenodd" />
-                    </svg>
-                    Top Livres les plus lus
-                  </h2>
-                </div>
-                <div class="p-6 space-y-4">
-                  <button class="w-full flex items-center justify-center px-4 py-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                      <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6z" />
-                    </svg>
-                    Ajouter Utilisateur
-                  </button>
-                  <button class="w-full flex items-center justify-center px-4 py-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947z" clip-rule="evenodd" />
-                    </svg>
-                    Gérer les Rôles
-                  </button>
-                  <button class="w-full flex items-center justify-center px-4 py-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                    </svg>
-                    Voir les Permissions
-                  </button>
-                </div>
-              </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+  <div class="px-6 py-4 border-b border-gray-200">
+    <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-purple-500" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 5a1 1 0 10-2 0v4a1 1 0 001 1h1a1 1 0 100-2h-1V7zM11 13h2v2h-2v-2z" clip-rule="evenodd" />
+      </svg>
+      Statistiques de téléchargement
+    </h2>
+  </div>
+  <div class="p-6">
+    <div class="space-y-4" id="downloadStatsContainer">
+      <div class="text-center text-gray-500">
+        Chargement des statistiques...
+      </div>
+    </div>
+  </div>
+</div>
 
             </div>
           </div>
@@ -272,4 +227,113 @@ showErrorState() {
 }
 
 
+async loadMemoireStats() {
+    try {
+        const stats = await this.livreSvc.getMemoireStats();
+        this.renderMemoireStats(stats);
+    } catch (error) {
+        console.error("Erreur chargement stats mémoires:", error);
+        this.showMemoireStatsError();
+    }
+}
+
+renderMemoireStats(stats) {
+    const tbody = document.getElementById('memoireStatsBody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = stats.length === 0
+        ? `<tr><td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">Aucun mémoire trouvé</td></tr>`
+        : stats.map(stat => `
+            <tr class="hover:bg-gray-50 transition-colors duration-150">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${stat.annee}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${stat.specialite}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${stat.count}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    ${stat.lastDownload 
+                        ? new Date(stat.lastDownload).toLocaleDateString('fr-FR') 
+                        : 'Non téléchargé'}
+                </td>
+            </tr>
+        `).join('');
+}
+
+showMemoireStatsError() {
+    const tbody = document.querySelector('.min-w-full.divide-y.divide-gray-200 tbody');
+    if (tbody) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="4" class="px-6 py-4 text-center text-sm text-red-500">
+                    Erreur lors du chargement des données
+                </td>
+            </tr>
+        `;
+    }
+}
+
+async loadDownloadStats() {
+    try {
+        // Récupérer le total des téléchargements
+        const totalDownloads = await this.telechargementSvc.getTotalTelechargements();
+        
+        // Récupérer les livres les plus téléchargés
+        const popularBooks = await this.livreSvc.getPopularBooks(5); // Top 5
+        
+        this.renderDownloadStats(popularBooks, totalDownloads);
+    } catch (error) {
+        console.error("Erreur chargement stats téléchargements:", error);
+        this.showDownloadStatsError();
+    }
+}
+
+renderDownloadStats(books, totalDownloads) {
+    const container = document.getElementById('downloadStatsContainer');
+    if (!container) return;
+    
+    if (books.length === 0 || totalDownloads === 0) {
+        container.innerHTML = `
+            <div class="text-center text-gray-500">
+                Aucune donnée de téléchargement disponible
+            </div>
+        `;
+        return;
+    }
+    
+    container.innerHTML = `
+        <div class="mb-4 text-center">
+            <span class="text-sm text-gray-500">Total téléchargements: </span>
+            <span class="font-semibold">${totalDownloads}</span>
+        </div>
+        ${books.map(book => {
+            const percentage = totalDownloads > 0 
+                ? Math.round((book.downloadCount / totalDownloads) * 100) 
+                : 0;
+                
+            return `
+                <div class="mb-3">
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="font-medium text-gray-700 truncate">${book.titre}</span>
+                        <span class="text-gray-500">
+                            ${book.downloadCount || 0} (${percentage}%)
+                        </span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-[#F998A9] h-2.5 rounded-full" 
+                             style="width: ${percentage}%"></div>
+                    </div>
+                </div>
+            `;
+        }).join('')}
+    `;
+}
+
+showDownloadStatsError() {
+    const container = document.getElementById('downloadStatsContainer');
+    if (container) {
+        container.innerHTML = `
+            <div class="text-center text-red-500">
+                Erreur lors du chargement des statistiques
+            </div>
+        `;
+    }
+}
 }

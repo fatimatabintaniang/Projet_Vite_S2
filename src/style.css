@@ -1,2 +1,43 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+/* Animation pour les interactions */
+.favori-btn, .lu-btn, .telecharger-btn, .lire-btn {
+    transition: all 0.2s ease;
+}
+
+/* Style des cartes */
+[data-id] {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-id]:hover {
+    transform: translateY(-5px);
+}
+
+/* Animation pour les lignes du tableau */
+tr {
+    transition: background-color 0.2s ease;
+}
+
+/* Style pour les liens d'action */
+.text-indigo-600:hover, .text-green-600:hover {
+    text-decoration: underline;
+}
+
+/* Style responsive pour le tableau */
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+#btn-download {
+    transition: all 0.3s ease;
+}
+
+#btn-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

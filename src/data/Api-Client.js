@@ -3,12 +3,15 @@ export class ApiClient {
     if (!/^https?:\/\//.test(base)) base = "http://" + base.replace(/^\/+/, "");
     this.base = base.replace(/\/$/, "");
   }
+
   _url(p = "") {
     return `${this.base}/${p}`.replace(/([^:]\/)\/+/g, "$1");
   }
+
   _check(r, v) {
     if (!r.ok) throw new Error(`${v} ${r.status}`);
   }
+
   async get(p = "", q = {}) {
     const u = new URL(this._url(p));
     for (const [k, v] of Object.entries(q)) u.searchParams.append(k, v);
@@ -16,6 +19,7 @@ export class ApiClient {
     this._check(r, "GET");
     return { data: await r.json(), headers: r.headers };
   }
+
   async post(p = "", b) {
     const r = await fetch(this._url(p), {
       method: "POST",
@@ -25,8 +29,9 @@ export class ApiClient {
     this._check(r, "POST");
     return r.json();
   }
-  async put(p = "", id, b) {
-    const r = await fetch(this._url(`${p}/${id}`), {
+
+  async put(p = "", b) {  
+    const r = await fetch(this._url(p), {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(b),
@@ -34,26 +39,32 @@ export class ApiClient {
     this._check(r, "PUT");
     return r.json();
   }
-  async patch(p = "", id, b) {
-  const r = await fetch(this._url(`${p}/${id}`), {
+
+async patch(p = "", b) {
+  const r = await fetch(this._url(p), {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(b),
   });
 
   if (!r.ok) {
-    const errText = await r.text(); // lis le corps texte de l'erreur
-    throw new Error(`PATCH ${p}/${id} failed (${r.status}): ${errText}`);
+    const errText = await r.text();
+    throw new Error(`PATCH ${p} failed (${r.status}): ${errText}`);
   }
 
-  return r.json(); // ici on est sûr que le contenu est du JSON
+  return r.json();
 }
-async delete(p = "", id) {
-  const r = await fetch(this._url(`${p}/${id}`), {
-    method: "DELETE"
+
+
+  
+
+  async delete(p = "") {
+  const r = await fetch(this._url(p), {
+    method: "DELETE",
   });
   this._check(r, "DELETE");
-  return r.json().catch(() => ({})); 
+  return r.json();
 }
+
 
 }

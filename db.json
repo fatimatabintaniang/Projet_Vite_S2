@@ -114,6 +114,16 @@
       "id_role": "2",
       "deleted": "false",
       "deletedAt": null
+    },
+    {
+      "id": "88d3",
+      "nom": "Diallo",
+      "prenom": "Fallou",
+      "telephone": "789900056",
+      "email": "loufa@gmail.com",
+      "password": "passer123",
+      "id_role": "3",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1755353612/xztzhlqaihrnyasbwf6b.jpg"
     }
   ],
   "roles": [
@@ -132,50 +142,89 @@
   ],
   "livres": [
     {
-      "id": 1,
-      "titre": "Introduction à l'Algorithmique",
-      "auteur": "Thomas Cormen",
-      "id_format": 1,
-      "id_type": 1,
-      "chemin_fichier": "/uploads/livres/algo.pdf",
-      "categorieId": 1,
-      "niveauId": 2,
-      "matiereId": 3,
-      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1753358370/impjqb0d74s43jqepdnk.jpg",
-      "createdAt": "2023-05-15T10:30:00Z"
+      "titre": "Vol de Nuit",
+      "auteur": "Phedre",
+      "id_format": "3",
+      "id_type": "3",
+      "categorieId": "2",
+      "niveauId": "1",
+      "matiereId": "1",
+      "utilisateurId": null,
+      "annee": "2025",
+      "specialite": "Developpement",
+      "statut": "En attente",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1755449082/cvobrfjcrwltvpugc3kk.jpg",
+      "chemin_fichier": "Doc4.docx",
+      "id": "9c70"
     },
     {
-      "id": 2,
-      "titre": "Méthodes Numériques Appliquées",
-      "auteur": "Jean-Pierre Demailly",
-      "id_format": 2,
-      "id_type": 1,
-      "chemin_fichier": "/uploads/livres/methodes-num.epub",
-      "categorieId": 2,
-      "niveauId": 3,
-      "matiereId": 1,
-      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1754497328/vnhrrqabbvbfezrglw11.jpg",
-      "createdAt": "2023-06-01T12:00:00Z"
+      "titre": "une si longue lettreee",
+      "auteur": "Mariama Ba",
+      "id_format": "1",
+      "id_type": "1",
+      "categorieId": "1",
+      "niveauId": "1",
+      "matiereId": "4",
+      "utilisateurId": null,
+      "annee": "2025",
+      "specialite": "",
+      "statut": "",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1755449111/humon1zhxnfsgbgujnva.jpg",
+      "chemin_fichier": "English For IT students L1.pdf",
+      "id": "8163"
+    },
+    {
+      "id": "c49f",
+      "titre": "Soumission",
+      "auteur": "Rosa Parc",
+      "id_format": "1",
+      "id_type": "1",
+      "categorieId": "1",
+      "niveauId": "4",
+      "matiereId": "4",
+      "utilisateurId": null,
+      "annee": "2025",
+      "specialite": "",
+      "statut": "",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1755449191/dhtfwgntorwbr1ops5yt.jpg",
+      "chemin_fichier": "Document sans titre (4).pdf"
+    },
+    {
+      "id": "2f19",
+      "titre": "Fleur Sauvage",
+      "auteur": "Remi Giordano",
+      "id_format": "1",
+      "id_type": "1",
+      "categorieId": "1",
+      "niveauId": "1",
+      "matiereId": "2",
+      "utilisateurId": null,
+      "annee": "2025",
+      "specialite": "",
+      "statut": "",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1755449396/bnakx1vybghxazi49go9.jpg",
+      "chemin_fichier": "Projet AgroVital.pdf",
+      "deleted": false
     }
   ],
   "telechargements": [
     {
       "id": "1",
       "id_livre": "1",
-      "id_utilisateur": "151d",
+      "id_utilisateur": "1e00",
       "date_telechargement": "2023-10-01T10:00:00Z"
-    },
-    {
-      "id": "2",
-      "id_livre": "2",
-      "id_utilisateur": "0282",
-      "date_telechargement": "2023-10-02T11:00  :00Z"
     },
     {
       "id": "3",
       "id_livre": "1",
       "id_utilisateur": "543c",
       "date_telechargement": "2023-10-03T12:30:00Z"
+    },
+    {
+      "id": "2387",
+      "id_livre": "8163",
+      "id_utilisateur": "1e00",
+      "date_telechargement": "2025-08-16T21:45:40.974Z"
     }
   ],
   "categories": [
@@ -184,32 +233,14 @@
       "id": "1"
     },
     {
+      "nom": "Mathématiqu",
       "id": "2",
-      "nom": "Mathématiques",
-      "deleted": false,
-      "deletedAt": null
+      "deleted": false
     },
     {
-      "id": "3",
-      "nom": "IA",
-      "deleted": false,
-      "deletedAt": null
-    },
-    {
-      "id": "b196",
+      "id": "4c48",
       "nom": "Fatima",
-      "deleted": false,
-      "deletedAt": null
-    },
-    {
-      "nom": "Marieeeeeeeeeeeeeeeeeeeeee",
-      "id": "424d",
-      "deleted": true
-    },
-    {
-      "id": "9d9a",
-      "nom": "bbbbbbbbbb",
-      "deleted": true
+      "deleted": false
     }
   ],
   "niveaux": [
@@ -252,30 +283,24 @@
       "nom_matiere": "Systèmes Intelligents"
     }
   ],
-  "Memoire": [
+  "memoire": [
     {
-      "id": 1,
-      "titre": "Exemple de mémoire",
-      "auteur": "Jean Dupont",
-      "annee": 2023,
-      "specialite": "Informatique",
-      "fichier_memoire": "/chemin/vers/fichier.pdf",
-      "statut": "valide",
-      "utilisateurId": "151d",
-      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1754499421/bese8uslrxfybfwxfmlh.jpg",
+      "id": "2b4f",
+      "id_livre": "9c70",
+      "annee": "2025",
+      "specialite": "Developpement",
+      "statut": "Valider",
+      "utilisateurId": null,
       "deleted": false,
       "deletedAt": null
     },
     {
-      "id": 2,
-      "titre": "Autre mémoire",
-      "auteur": "Marie Martin",
-      "annee": 2024,
-      "specialite": "Mathématiques",
-      "fichier_memoire": "/chemin/vers/autre_fichier.pdf",
-      "statut": "en_attente",
-      "utilisateurId": "1e00",
-      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1754517910/tnz2nlatvutivytgrg5q.webp",
+      "id": "3ce9",
+      "id_livre": "9c70",
+      "annee": "2025",
+      "specialite": "Developpement",
+      "statut": "En attente",
+      "utilisateurId": null,
       "deleted": false,
       "deletedAt": null
     }
@@ -306,6 +331,26 @@
     {
       "id": 3,
       "extension": "DOCX"
+    }
+  ],
+  "favorie": [
+    {
+      "id": "2",
+      "id_livre": "9c70",
+      "id_utilisateur": "151d",
+      "date_ajout": "2023-10-06T09:15:00Z"
+    },
+    {
+      "id": "9a77",
+      "id_livre": "8163",
+      "id_utilisateur": "1e00",
+      "date_ajout": "2025-08-16T22:12:48.542Z"
+    },
+    {
+      "id": "8a03",
+      "id_livre": "9c70",
+      "id_utilisateur": "1e00",
+      "date_ajout": "2025-08-17T16:37:28.234Z"
     }
   ]
 }

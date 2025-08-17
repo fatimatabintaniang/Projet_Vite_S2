@@ -16,11 +16,13 @@ export default class EnseignantScreen {
 
     this.container.innerHTML = `
       <div class="p-4">
+      <div class="flex justify-between">
         <h2 class="text-2xl font-bold mb-4">Liste des enseignants</h2>
-        <button id="openModal" class="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+        <button id="openModal" class="mb-4 px-4 py-2 bg-[#873A0E] text-white rounded hover:bg-[#873A0E]">
           + Ajouter un enseignant
         </button>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 ">
           ${enseignants.map(e => `
             <div class="bg-white shadow-md rounded-lg p-4">
               <img src="${e.image || 'https://via.placeholder.com/150'}" alt="photo" class="w-24 h-24 object-cover rounded-full mb-2">
@@ -57,11 +59,11 @@ export default class EnseignantScreen {
             </div>
           </div>
         </div>
-        <input type="text" name="prenom" placeholder="Prénom" required class="w-full border p-2 rounded">
-        <input type="text" name="nom" placeholder="Nom" required class="w-full border p-2 rounded">
-        <input type="email" name="email" placeholder="Email" required class="w-full border p-2 rounded">
+        <input type="text" name="prenom" placeholder="Prénom"  class="w-full border p-2 rounded">
+        <input type="text" name="nom" placeholder="Nom"  class="w-full border p-2 rounded">
+        <input type="email" name="email" placeholder="Email"  class="w-full border p-2 rounded">
         <input type="tel" name="telephone" placeholder="Téléphone" class="w-full border p-2 rounded">
-        <input type="password" name="password" placeholder="Mot de passe" required class="w-full border p-2 rounded">
+        <input type="password" name="password" placeholder="Mot de passe"  class="w-full border p-2 rounded">
         <div class="flex justify-end gap-2">
           <button type="button" id="closeModal" class="px-4 py-2 bg-gray-400 text-white rounded">Annuler</button>
           <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded">Ajouter</button>

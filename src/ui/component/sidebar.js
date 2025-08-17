@@ -37,10 +37,7 @@ export default class Sidebar {
             <i class="fa fa-tags mr-3 text-xs"></i>
             <span>Lister les catégories</span>
           </a>
-          <a href="#memoires" class="flex items-center p-2 rounded-lg ${getActiveClass('#memoires')} transition-colors">
-            <i class="fa fa-file-alt mr-3 text-xs"></i>
-            <span>Lister les mémoires</span>
-          </a>
+        
           <a href="#add-enseignant" class="flex items-center p-2 rounded-lg ${getActiveClass('#enseignants')} transition-colors">
             <i class="fa fa-chalkboard-teacher mr-3 text-xs"></i>
             <span>Lister les enseignants</span>
@@ -74,19 +71,19 @@ export default class Sidebar {
         links = `
           <a href="#etudiant" class="flex items-center p-2 rounded-lg ${getActiveClass('#etudiant')} transition-colors">
             <i class="fa fa-home mr-3 text-xs"></i>
-            <span>Accueil</span>
+            <span>Dashboard</span>
           </a>
-          <a href="#recherche" class="flex items-center p-2 rounded-lg ${getActiveClass('#recherche')} transition-colors">
+          <a href="#livre-Etudiant" class="flex items-center p-2 rounded-lg ${getActiveClass('#livre-Etudiant')} transition-colors">
             <i class="fa fa-search mr-3 text-xs"></i>
-            <span>Recherche</span>
+            <span>Liste Livre</span>
           </a>
-          <a href="#mes-livres" class="flex items-center p-2 rounded-lg ${getActiveClass('#mes-livres')} transition-colors">
+          <a href="#favoris" class="flex items-center p-2 rounded-lg ${getActiveClass('#favoris')} transition-colors">
             <i class="fa fa-bookmark mr-3 text-xs"></i>
-            <span>Mes livres</span>
+            <span>Liste des favorie</span>
           </a>
-          <a href="#mes-demandes" class="flex items-center p-2 rounded-lg ${getActiveClass('#mes-demandes')} transition-colors">
+          <a href="#telechargement" class="flex items-center p-2 rounded-lg ${getActiveClass('#telechargement')} transition-colors">
             <i class="fa fa-list-alt mr-3 text-xs"></i>
-            <span>Mes demandes</span>
+            <span>Liste des telechargements</span>
           </a>
         `;
         break;

@@ -7,7 +7,7 @@ export default class MemoireService {
 
   async getAllMemoires() {
     try {
-      const { data } = await this.api.get("Memoire"); // Utilisation de ApiClient
+      const { data } = await this.api.get("memoire"); // Utilisation de ApiClient
       return data;
     } catch (error) {
       console.error("Erreur dans getAllMemoires:", error);
@@ -17,7 +17,7 @@ export default class MemoireService {
 
   async getMemoireById(id) {
     try {
-      const { data } = await this.api.get(`Memoire/${id}`);
+      const { data } = await this.api.get(`memoire/${id}`);
       return data;
     } catch (error) {
       console.error("Erreur dans getMemoireById:", error);
@@ -27,7 +27,7 @@ export default class MemoireService {
 
   async createMemoire(memoire) {
     try {
-      return await this.api.post("Memoire", memoire);
+      return await this.api.post("memoire", memoire);
     } catch (error) {
       console.error("Erreur dans createMemoire:", error);
       throw error;
@@ -45,10 +45,19 @@ export default class MemoireService {
 
   async deleteMemoire(id) {
     try {
-      return await this.api.patch("Memoire", id, { deleted: true });
+      return await this.api.patch("memoire", id, { deleted: true });
     } catch (error) {
       console.error("Erreur dans deleteMemoire:", error);
       throw error;
     }
+  }
+
+  async softDeleteMemoire(){
+    try {
+      return await this.api.patch("memoire", { deleted: false });
+      } catch (error) {
+        console.error("Erreur dans softDeleteMemoire:", error);
+        throw error
+        }
   }
 }

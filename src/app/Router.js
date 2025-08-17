@@ -7,7 +7,10 @@ import EnseignantScreen from "../ui/screens/Admin/EnseignantScreen.js";
 import DashboardScreen from "../ui/screens/Admin/DashboardScreen.js";
 import { LivresScreen } from "../ui/screens/Admin/LivresScreen.js";
 import { CategorieScreen } from "../ui/screens/Admin/CategorieScreen.js";
-import { MemoireScreen } from "../ui/screens/Admin/MemoireScreen.js";
+import StudentDashboardScreen from "../ui/screens/Etudiant/DashboardEtudiant.js";
+import StudentBooksScreen from "../ui/screens/Etudiant/LivreEtudiant.js";
+import FavorisScreen from "../ui/screens/Etudiant/FavorisScreen.js";
+import TelechargementsScreen from "../ui/screens/Etudiant/TelechargementsScreen.js";
 export default class Router {
   constructor(appRoot) {
     this.appRoot = appRoot;
@@ -85,12 +88,13 @@ export default class Router {
       case "#livres":
         new LivresScreen(content).render();
         break; 
-      case "#memoires":
-        new MemoireScreen(content).render();
-        break;
-      // case "#categories":
-      //   content.innerHTML = "<h1 class='text-2xl'>Espace Catégorie</h1>";
-      //   break;
+        case "#livre-Etudiant":
+          new StudentBooksScreen(content).render();
+          break;
+        case "#favoris":
+    new FavorisScreen(content).render();
+    break;
+     
       case "#categories":
   new CategorieScreen(content).render();
   break;
@@ -101,8 +105,10 @@ export default class Router {
         content.innerHTML = "<h1 class='text-2xl'>Espace Enseignant</h1>";
         break;
       case "#etudiant":
-        content.innerHTML = "<h1 class='text-2xl'>Espace Étudiant</h1>";
+        new StudentDashboardScreen(content).render();
         break;
+      case "#telechargement":
+        new TelechargementsScreen(content).render();
       case "#add-enseignant":
         if (user?.id_role === "1") {
           new EnseignantScreen(content).render();
