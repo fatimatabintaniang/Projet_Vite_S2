@@ -11,6 +11,8 @@ export default class DashboardScreen{
      this.livreSvc = new LivreService();
      this.telechargementSvc = new TelechargementService();
   }
+
+  // Fonction pour vérifier si l'utilisateur est connecté
   async render() {
     this.container.innerHTML = this.getHTMLSkeleton();
     await this.renderStats();
@@ -19,6 +21,7 @@ export default class DashboardScreen{
     
   }
 
+  // Fonction pour obtenir le squelette HTML de la page
   getHTMLSkeleton() {
     return `
       <div class="min-h-screen bg-gray-50 ">
@@ -149,19 +152,19 @@ export default class DashboardScreen{
   </div>
 </div>
 
-            <!-- Quick Actions (1/3 width) -->
+            <!-- Quick Actions  -->
             <div class="space-y-6">
-        <div class="bg-white rounded-xl shadow-md overflow-hidden">
-  <div class="px-6 py-4 border-b border-gray-200">
-    <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-purple-500" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 5a1 1 0 10-2 0v4a1 1 0 001 1h1a1 1 0 100-2h-1V7zM11 13h2v2h-2v-2z" clip-rule="evenodd" />
-      </svg>
-      Statistiques de téléchargement
-    </h2>
-  </div>
-  <div class="p-6">
-    <div class="space-y-4" id="downloadStatsContainer">
+        <div class="bg-white rounded-xl shadow-md ">
+          <div class="px-6 py-4 border-b border-gray-200 ">
+              <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-purple-500" viewBox="0 0 20 20" fill="currentColor">
+                 <path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 5a1 1 0 10-2 0v4a1 1 0 001 1h1a1 1 0 100-2h-1V7zM11 13h2v2h-2v-2z" clip-rule="evenodd" />
+                </svg>
+                      Statistiques de téléchargement
+               </h2>
+           </div>
+        <div class="p-6">
+    <div class="space-y-4 overflow-x-auto h-[30vh]" id="downloadStatsContainer">
       <div class="text-center text-gray-500">
         Chargement des statistiques...
       </div>
@@ -176,6 +179,7 @@ export default class DashboardScreen{
     `;
   }
 
+  // Fonction pour afficher les statistiques
 async renderStats() {
     try {
         // Récupération en parallèle pour meilleures performances
@@ -201,7 +205,7 @@ async renderStats() {
     }
 }
 
-// Méthodes supplémentaires
+// Fonction pour animer les compteurs
 animateCounters() {
     const counters = ['nbEnseignant', 'nbEtudiant', 'nbLivres', 'nbTelechargement'];
     counters.forEach(id => {
@@ -215,6 +219,7 @@ animateCounters() {
     });
 }
 
+// Fonction pour afficher un état d'erreur
 showErrorState() {
     const elements = ['nbEnseignant', 'nbEtudiant', 'nbLivres', 'nbTelechargement'];
     elements.forEach(id => {
@@ -226,7 +231,7 @@ showErrorState() {
     });
 }
 
-
+// Fonction pour charger les statistiques des mémoires
 async loadMemoireStats() {
     try {
         const stats = await this.livreSvc.getMemoireStats();
@@ -237,6 +242,7 @@ async loadMemoireStats() {
     }
 }
 
+// Fonction pour afficher les statistiques des mémoires
 renderMemoireStats(stats) {
     const tbody = document.getElementById('memoireStatsBody');
     if (!tbody) return;
@@ -257,6 +263,8 @@ renderMemoireStats(stats) {
         `).join('');
 }
 
+
+// Fonction pour afficher un message d'erreur lors du chargement des statistiques des mémoires
 showMemoireStatsError() {
     const tbody = document.querySelector('.min-w-full.divide-y.divide-gray-200 tbody');
     if (tbody) {
@@ -270,13 +278,15 @@ showMemoireStatsError() {
     }
 }
 
+
+// Fonction pour charger les statistiques de téléchargement
 async loadDownloadStats() {
     try {
         // Récupérer le total des téléchargements
         const totalDownloads = await this.telechargementSvc.getTotalTelechargements();
         
         // Récupérer les livres les plus téléchargés
-        const popularBooks = await this.livreSvc.getPopularBooks(5); // Top 5
+        const popularBooks = await this.livreSvc.getPopularBooks(2); 
         
         this.renderDownloadStats(popularBooks, totalDownloads);
     } catch (error) {
@@ -285,6 +295,7 @@ async loadDownloadStats() {
     }
 }
 
+// Fonction pour afficher les statistiques de téléchargement
 renderDownloadStats(books, totalDownloads) {
     const container = document.getElementById('downloadStatsContainer');
     if (!container) return;
@@ -326,6 +337,8 @@ renderDownloadStats(books, totalDownloads) {
     `;
 }
 
+
+// Fonction pour afficher un message d'erreur lors du chargement des statistiques de téléchargement
 showDownloadStatsError() {
     const container = document.getElementById('downloadStatsContainer');
     if (container) {

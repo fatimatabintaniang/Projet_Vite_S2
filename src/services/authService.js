@@ -5,6 +5,7 @@ export class AuthService {
     this.apiClient = new ApiClient("http://localhost:3000");
   }
 
+  // Méthodes pour l'authentification
   async login(email, password) {
     const response = await fetch(`http://localhost:3000/utilisateurs?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
     const users = await response.json();
@@ -24,6 +25,7 @@ export class AuthService {
     return user;
   }
 
+  // Méthode pour l'enregistrement d'un nouvel utilisateur
   async register(userData) {
     console.log(userData);
     
@@ -52,6 +54,8 @@ export class AuthService {
     return user;
   }
 
+
+  // Méthode pour ajouter un utilisateur
   async addUser(user) {
   const response = await fetch("http://localhost:3000/utilisateurs", {
     method: "POST",
@@ -64,10 +68,12 @@ export class AuthService {
 }
 
 
+  // Méthode pour supprimer un utilisateur
   logout() {
     localStorage.removeItem("user");
   }
 
+  // Méthode pour vérifier si un utilisateur est connecté
   getCurrentUser() {
     return JSON.parse(localStorage.getItem("user"));
   }

@@ -6,6 +6,8 @@ export default class FavoriService {
         this.api = new ApiClient(baseUrl);
     }
 
+
+//fonction pour recuperer les favoris d'un utilisateur connecter
 async getFavorisByUser(userId) {
     try {
         // 1. Récupérer les favoris
@@ -27,6 +29,7 @@ async getFavorisByUser(userId) {
     }
 }
 
+    // Méthodes pour la gestion des favoris
     async addFavori(livreId, userId) {
         try {
             const response = await this.api.post('favorie', {
@@ -41,6 +44,7 @@ async getFavorisByUser(userId) {
         }
     }
 
+    // Méthode pour supprimer un favori
     async removeFavori(favoriId) {
         try {
             const response = await this.api.delete(`favorie/${favoriId}`);
@@ -51,6 +55,7 @@ async getFavorisByUser(userId) {
         }
     }
 
+    // Méthode pour vérifier si un livre est dans les favoris d'un utilisateur
     async isFavori(livreId, userId) {
         try {
             const response = await this.api.get(`favorie?id_livre=${livreId}&id_utilisateur=${userId}`);
@@ -61,6 +66,7 @@ async getFavorisByUser(userId) {
         }
     }
 
+    // Méthode pour compter le nombre de favoris d'un utilisateur
     async getUserFavorisCount(userId) {
     try {
         const response = await this.api.get(`favorie?id_utilisateur=${userId}`);

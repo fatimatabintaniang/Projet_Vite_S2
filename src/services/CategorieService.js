@@ -5,6 +5,7 @@ export default class CategorieService {
     this.api = new ApiClient(baseUrl);
   }
 
+  // Méthodes pour la gestion des catégories
   async getAllCategories() {
     try {
       const response = await this.api.get('categories');
@@ -15,6 +16,8 @@ export default class CategorieService {
     }
   }
 
+
+  //Methode pour creer une catégorie
   async createCategory(categoryData) {
     try {
       const response = await this.api.post('categories', categoryData);
@@ -25,9 +28,10 @@ export default class CategorieService {
     }
   }
 
+
+  // Methode pour mettre à jour une catégorie
 async updateCategory(id, categoryData) {
   try {
-    // Utilisez la route complète 'categories/id' au lieu de séparer les paramètres
     const response = await this.api.put(`categories/${id}`, categoryData);
     return response;
   } catch (error) {
@@ -36,6 +40,8 @@ async updateCategory(id, categoryData) {
   }
 }
 
+
+  // Méthode pour supprimer une catégorie
 async softDeleteCategory(id) {
   try {
     const response = await this.api.patch(`categories/${id}`, { deleted: true });
@@ -46,6 +52,8 @@ async softDeleteCategory(id) {
   }
 }
 
+
+  // Méthode pour restaurer une catégorie supprimée
 async restoreCategory(id) {
   try {
     const response = await this.api.patch(`categories/${id}`, { deleted: false });

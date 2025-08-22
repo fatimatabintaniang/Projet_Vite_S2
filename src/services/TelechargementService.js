@@ -1,4 +1,3 @@
-// src/services/TelechargementService.js
 import { ApiClient } from "../data/Api-Client.js";
 
 export default class TelechargementService {
@@ -6,7 +5,7 @@ export default class TelechargementService {
         this.api = new ApiClient(baseUrl);
     }
 
-    
+    // Méthode pour récupérer le nombre de téléchargements d'un utilisateur
     async getUserDownloadsCount(userId) {
         try {
             const response = await this.api.get(`telechargements?id_utilisateur=${userId}`);
@@ -16,7 +15,7 @@ export default class TelechargementService {
             return 0;
         }
     }
-
+// Méthode pour récupérer les téléchargements d'un utilisateur
     async getUserDownloads(userId) {
         try {
             const response = await this.api.get(`telechargements?id_utilisateur=${userId}&_expand=livre`);
@@ -26,7 +25,7 @@ export default class TelechargementService {
             return [];
         }
     }
-
+// Méthode pour enregistrer un téléchargement
 async enregistrerTelechargement(livreId, userId) {
     try {
         const response = await this.api.post('telechargements', {
@@ -40,7 +39,7 @@ async enregistrerTelechargement(livreId, userId) {
         throw error;
     }
 }
-
+// Méthode pour récupérer le nombre total de téléchargements
 async getTotalTelechargements() {
     try {
        

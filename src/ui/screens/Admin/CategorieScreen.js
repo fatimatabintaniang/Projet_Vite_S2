@@ -1,6 +1,7 @@
 import { Modal } from "../../component/Modal.js";
 import { confirm } from "../../component/Confirm.js";
 import CategorieService from "../../../services/CategorieService.js";
+import { validate } from "../../../utils/validation.js";
 
 export class CategorieScreen {
   constructor(container) {
@@ -42,10 +43,12 @@ export class CategorieScreen {
     this.init();
   }
 
+  // Fonction d'initialisation
   async init() {
     await this.loadCategories();
   }
 
+  // Fonction pour charger les catégories depuis le service
   async loadCategories() {
     try {
       let data = await this.categorieService.getAllCategories();
@@ -57,6 +60,8 @@ export class CategorieScreen {
     }
   }
 
+
+  // Fonction pour afficher les catégories dans le conteneur
   render() {
     this.container.innerHTML = `
       <div class="p-6">
@@ -97,65 +102,121 @@ export class CategorieScreen {
     `;
   }
 
-  showCategoryForm(category = null) {
-    const modal = new Modal({
-      title: category ? 'Modifier Catégorie' : 'Nouvelle Catégorie',
-      content: `
-        <form id="category-form" class="space-y-4 p-4">
-          <div>
-            <label class="block text-sm font-medium mb-1">
-              Nom de la catégorie <span class="text-red-500">*</span>
-            </label>
-            <input type="text" name="nom" value="${category?.nom || ''}" 
-                   class="w-full p-2 border rounded" required minlength="2" maxlength="50" />
-            <p class="text-red-500 text-sm mt-1 hidden" id="nom-error">
-              Le nom doit contenir entre 2 et 50 caractères
-            </p>
-          </div>
-          <div class="flex justify-end space-x-2">
-            <button type="button" id="cancel-form" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Annuler</button>
-            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-              ${category ? 'Modifier' : 'Ajouter'}
-            </button>
-          </div>
-        </form>
-      `
-    });
 
-    document.body.appendChild(modal.getElement());
-    modal.open();
+  // Fonction pour afficher le formulaire de catégorie
+ showCategoryForm(category = null) {
+  const modal = new Modal({
+    title: category ? 'Modifier Catégorie' : 'Nouvelle Catégorie',
+    content: `
+      <form id="category-form" class="space-y-4 p-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">
+            Nom de la catégorie <span class="text-red-500">*</span>
+          </label>
+          <input type="text" name="nom" value="${category?.nom || ''}" 
+                 class="w-full p-2 border rounded" 
+                 minlength="2" maxlength="50" />
+          <p class="text-red-500 text-sm mt-1 hidden" id="nom-error">
+            Le nom doit contenir entre 2 et 50 caractères et être unique
+          </p>
+        </div>
+        <div class="flex justify-end space-x-2">
+          <button type="button" id="cancel-form" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Annuler</button>
+          <button type="submit" class="px-4 py-2 bg-[#873A0E] text-white rounded hover:bg-[#873A0E]">
+            ${category ? 'Modifier' : 'Ajouter'}
+          </button>
+        </div>
+      </form>
+    `
+  });
 
-    const formEl = modal.getElement().querySelector('#category-form');
-    const nomInput = formEl.querySelector('input[name="nom"]');
-    const nomError = formEl.querySelector('#nom-error');
+  document.body.appendChild(modal.getElement());
+  modal.open();
 
-    nomInput.addEventListener('input', () => {
-      nomError.classList.toggle('hidden', nomInput.validity.valid);
-    });
+  const formEl = modal.getElement().querySelector('#category-form');
+  const nomInput = formEl.querySelector('input[name="nom"]');
+  const nomError = formEl.querySelector('#nom-error');
 
-    formEl.addEventListener('submit', async e => {
-      e.preventDefault();
-      if (!nomInput.validity.valid) {
-        nomError.classList.remove('hidden');
-        return;
+  // Validation en temps réel
+  nomInput.addEventListener('input', async () => {
+    const value = nomInput.value.trim();
+    const errors = await this.validateCategoryName(value, category?.id);
+    
+    if (errors.nom) {
+      nomError.textContent = errors.nom;
+      nomError.classList.remove('hidden');
+      nomInput.setCustomValidity(errors.nom);
+    } else {
+      nomError.classList.add('hidden');
+      nomInput.setCustomValidity('');
+    }
+  });
+
+  formEl.addEventListener('submit', async e => {
+    e.preventDefault();
+    
+    const value = nomInput.value.trim();
+    const errors = await this.validateCategoryName(value, category?.id);
+    
+    if (Object.keys(errors).length > 0) {
+      nomError.textContent = errors.nom || '';
+      nomError.classList.toggle('hidden', !errors.nom);
+      return;
+    }
+
+    try {
+      if (category) {
+        await this.categorieService.updateCategory(category.id, { nom: value });
+      } else {
+        await this.categorieService.createCategory({ nom: value, deleted: false });
       }
+      modal.close();
+      await this.loadCategories();
+    } catch (error) {
+      alert(`Erreur: ${error.message}`);
+    }
+  });
 
-      try {
-        if (category) {
-          await this.categorieService.updateCategory(category.id, { nom: nomInput.value.trim() });
-        } else {
-          await this.categorieService.createCategory({ nom: nomInput.value.trim(), deleted: false });
-        }
-        modal.close();
-        await this.loadCategories();
-      } catch (error) {
-        alert(`Erreur: ${error.message}`);
-      }
-    });
+  formEl.querySelector('#cancel-form').addEventListener('click', () => modal.close());
+}
 
-    formEl.querySelector('#cancel-form').addEventListener('click', () => modal.close());
+
+  // Fonction pour valider le nom de la catégorie
+async validateCategoryName(name, currentId = null) {
+  const errors = {};
+  
+  // Validation de base
+  if (!name) {
+    errors.nom = 'Le nom est requis';
+    return errors;
   }
+  
+  if (name.length < 2 || name.length > 50) {
+    errors.nom = 'Le nom doit contenir entre 2 et 50 caractères';
+    return errors;
+  }
+  
+  // Vérification d'unicité
+  try {
+    const categories = await this.categorieService.getAllCategories();
+    const existingCategory = categories.find(cat => 
+      cat.nom.toLowerCase() === name.toLowerCase() && 
+      cat.id !== currentId && 
+      !cat.deleted
+    );
+    
+    if (existingCategory) {
+      errors.nom = 'Ce nom de catégorie existe déjà';
+    }
+  } catch (error) {
+    console.error('Erreur lors de la vérification de l\'unicité:', error);
+    errors.nom = 'Erreur lors de la vérification de l\'unicité';
+  }
+  
+  return errors;
+}
 
+  // Fonction pour afficher un message d'erreur
   showError(message) {
     this.container.innerHTML = `
       <div class="p-6 bg-red-50 text-red-600 rounded-lg">

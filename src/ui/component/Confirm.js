@@ -1,6 +1,4 @@
-/**
- * Composant de confirmation modale
- */
+
 export const confirm = (message) => {
   return new Promise((resolve) => {
     const modal = document.createElement('div');

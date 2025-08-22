@@ -4,6 +4,8 @@ import LivreService from "../../../services/LivreService";
 import TelechargementService from "../../../services/TelechargementService";
 
 export default class StudentDashboardScreen {
+  
+  
   constructor(container) {
     this.container = container;
     this.authSvc = new AuthService();
@@ -25,7 +27,7 @@ export default class StudentDashboardScreen {
         <div class="bg-white shadow">
           <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between">
-              <h1 class="text-3xl font-bold text-indigo-600">Tableau de Bord Étudiant</h1>
+              <h1 class="text-3xl font-bold text-[#873A0E]">Tableau de Bord Étudiant</h1>
               <div class="flex items-center space-x-4">
                 <span class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-sm font-medium text-green-800">
                   <span class="w-2 h-2 mr-2 rounded-full bg-green-500"></span>
@@ -39,7 +41,7 @@ export default class StudentDashboardScreen {
         <!-- Main Content -->
         <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <!-- Welcome Banner -->
-          <div class="bg-gradient-to-r from-indigo-500 to-blue-600 rounded-xl shadow-md p-6 mb-8 text-white">
+          <div class="bg-gradient-to-r from-[#F998A9] to-[#873A0E] rounded-xl shadow-md p-6 mb-8 text-white">
             <div class="flex items-center justify-between">
               <div>
                 <h2 class="text-2xl font-bold">Bienvenue, <span id="studentName">Étudiant</span> !</h2>
@@ -109,12 +111,12 @@ export default class StudentDashboardScreen {
 
           <!-- Two Column Layout -->
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Recent Books (2/3 width) -->
+            <!-- Recent Books  -->
             <div class="lg:col-span-2">
               <div class="bg-white rounded-xl shadow-md overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-200">
                   <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500" viewBox="0 0 20 20" fill="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#F998A9]" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
                     </svg>
                     Livres Récents
@@ -134,13 +136,13 @@ export default class StudentDashboardScreen {
               </div>
             </div>
 
-            <!-- Quick Actions (1/3 width) -->
+            <!-- Quick Actions -->
             <div class="space-y-6">
               <!-- Quick Actions Card -->
               <div class="bg-white rounded-xl shadow-md overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-200">
                   <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#F998A9]" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
                     </svg>
                     Accès Rapide
@@ -172,7 +174,7 @@ export default class StudentDashboardScreen {
               <div class="bg-white rounded-xl shadow-md overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-200">
                   <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#F998A9]" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd" />
                     </svg>
                     Ma Progression
@@ -198,9 +200,6 @@ export default class StudentDashboardScreen {
     `;
   }
 
-
-
-
 async renderStats() {
     try {
         const user = this.authSvc.getCurrentUser();
@@ -216,7 +215,7 @@ async renderStats() {
         const [nbLivres, nbTelechargements, nbFavoris] = await Promise.all([
             this.livreSvc.getTotalLivres(),
             this.telechargementSvc.getUserDownloadsCount(user.id),
-            this.favoriSvc.getUserFavorisCount(user.id) // Nouvelle méthode
+            this.favoriSvc.getUserFavorisCount(user.id) 
         ]);
         
         // Mise à jour de l'UI

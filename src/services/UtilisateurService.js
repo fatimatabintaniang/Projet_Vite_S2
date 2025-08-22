@@ -10,7 +10,7 @@ export default class UtilisateurService {
     };
   }
 
-  // Rafraîchit le cache si nécessaire (5 minutes de cache)
+  // Rafraîchit le cache 
   async _refreshCacheIfNeeded() {
     const now = Date.now();
     if (!this.cache.lastFetch || (now - this.cache.lastFetch) > 300000) {
@@ -27,6 +27,7 @@ export default class UtilisateurService {
     }
   }
 
+  // Récupère tous les utilisateurs, en excluant ceux marqués comme supprimés
    async getAllUtilisateurs(forceRefresh = false) {
     if (forceRefresh) this.cache.lastFetch = null;
     await this._refreshCacheIfNeeded();
@@ -40,12 +41,12 @@ export default class UtilisateurService {
       return !isDeleted;
     });
   }
-
+//Recupere tous les enseignants
   async getAllEnseignants() {
     const users = await this.getAllUtilisateurs();
     return users.filter(u => u.id_role === '2');
   }
-
+// Recupere tous les etudiants
   async getAllEtudiants() {
     const users = await this.getAllUtilisateurs();
     return users.filter(u => u.id_role === '3');

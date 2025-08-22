@@ -83,21 +83,21 @@ export default class Router {
         new RegisterScreen(content).render();
         break;
       case "#admin":
-         new DashboardScreen(content).render();
+        new DashboardScreen(content).render();
         break;
       case "#livres":
         new LivresScreen(content).render();
-        break; 
-        case "#livre-Etudiant":
-          new StudentBooksScreen(content).render();
-          break;
-        case "#favoris":
-    new FavorisScreen(content).render();
-    break;
-     
+        break;
+      case "#livre-Etudiant":
+        new StudentBooksScreen(content).render();
+        break;
+      case "#favoris":
+        new FavorisScreen(content).render();
+        break;
+
       case "#categories":
-  new CategorieScreen(content).render();
-  break;
+        new CategorieScreen(content).render();
+        break;
       case "#memoires":
         content.innerHTML = "<h1 class='text-2xl'>Espace Mémoire</h1>";
         break;

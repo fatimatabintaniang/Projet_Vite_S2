@@ -1,7 +1,7 @@
 /**
  * Fonctions de validation de formulaire
  */
-export const validate = (data, rules) => {
+export const validate = (data, rules, existingData = []) => {
   const errors = {};
 
   for (const field in rules) {
@@ -41,7 +41,13 @@ export const validate = (data, rules) => {
             errors[field] = 'Doit être un nombre';
           }
           break;
-          
+
+        case 'unique':
+          if (existingData.some(item => item[field] === value)) {
+            errors[field] = `${field} doit être unique`;
+          }
+          break;
+
         default:
           break;
       }

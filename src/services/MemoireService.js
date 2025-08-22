@@ -5,9 +5,10 @@ export default class MemoireService {
     this.api = new ApiClient(baseUrl);
   }
 
+  // Méthodes pour la gestion des mémoires
   async getAllMemoires() {
     try {
-      const { data } = await this.api.get("memoire"); // Utilisation de ApiClient
+      const { data } = await this.api.get("memoire"); 
       return data;
     } catch (error) {
       console.error("Erreur dans getAllMemoires:", error);
@@ -15,6 +16,7 @@ export default class MemoireService {
     }
   }
 
+  // Méthode pour récupérer une mémoire par son ID
   async getMemoireById(id) {
     try {
       const { data } = await this.api.get(`memoire/${id}`);
@@ -25,6 +27,8 @@ export default class MemoireService {
     }
   }
 
+
+  // Méthode pour creer une nouvelle mémoire
   async createMemoire(memoire) {
     try {
       return await this.api.post("memoire", memoire);
@@ -34,6 +38,7 @@ export default class MemoireService {
     }
   }
 
+  // Méthode pour mettre à jour une mémoire
   async updateMemoire(id, memoire) {
     try {
       return await this.api.put("Memoire", id, memoire);
@@ -43,6 +48,7 @@ export default class MemoireService {
     }
   }
 
+  // Méthode pour supprimer une mémoire (soft delete)
   async deleteMemoire(id) {
     try {
       return await this.api.patch("memoire", id, { deleted: true });
@@ -52,6 +58,7 @@ export default class MemoireService {
     }
   }
 
+  // Méthode pour restaurer une mémoire supprimée
   async softDeleteMemoire(){
     try {
       return await this.api.patch("memoire", { deleted: false });

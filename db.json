@@ -14,14 +14,15 @@
     },
     {
       "id": "0282",
-      "nom": "syyy",
-      "prenom": "mouhamed",
+      "nom": "sy",
+      "prenom": "Fatimata Binta",
       "email": "enseignant@gmail.com",
       "telephone": "773632963",
       "password": "enseignant123",
       "id_role": "2",
       "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1753365231/enzazbbp6zmnhc9j0ufo.png",
-      "deleted": "false"
+      "deleted": "true",
+      "deletedAt": "2025-08-20T12:43:43.220Z"
     },
     {
       "id": "151d",
@@ -54,8 +55,8 @@
       "password": "soda123",
       "image": "https://img.freepik.com/premium-photo/woman-checking-her-phone_53876-83216.jpg?uid=R136290033&ga=GA1.1.1421185707.1725292688&semt=ais_hybrid&w=740",
       "id_role": "2",
-      "deleted": "false",
-      "deletedAt": null
+      "deleted": "true",
+      "deletedAt": "2025-08-22T19:12:41.751Z"
     },
     {
       "id": "ae0a",
@@ -66,8 +67,8 @@
       "password": "diop123",
       "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1754499286/mqx67nt48ednq2be1gls.webp",
       "id_role": "2",
-      "deleted": "false",
-      "deletedAt": null
+      "deleted": "true",
+      "deletedAt": "2025-08-22T19:12:45.608Z"
     },
     {
       "id": "c279",
@@ -82,7 +83,7 @@
     {
       "id": "1850",
       "nom": "Niang",
-      "prenom": "Fatimata Binta",
+      "prenom": "Daro",
       "email": "fatima@gmail.com",
       "telephone": "767298266",
       "password": "mdp123",
@@ -100,8 +101,8 @@
       "password": "passer123",
       "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1754869437/vi860lvj3ixqeeizi6cj.jpg",
       "id_role": "2",
-      "deleted": "false",
-      "deletedAt": null
+      "deleted": "true",
+      "deletedAt": "2025-08-20T12:15:52.238Z"
     },
     {
       "id": "89ef",
@@ -124,6 +125,52 @@
       "password": "passer123",
       "id_role": "3",
       "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1755353612/xztzhlqaihrnyasbwf6b.jpg"
+    },
+    {
+      "id": "6ca7",
+      "nom": "Fall",
+      "prenom": "Moussa",
+      "email": "fall@gmail.com",
+      "telephone": "767298268",
+      "password": "mdp123",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1755455042/i9z8upzvtm4cfjus3o5e.png",
+      "id_role": "2",
+      "deleted": "true",
+      "deletedAt": "2025-08-20T00:20:55.210Z"
+    },
+    {
+      "id": "c6a8",
+      "nom": "Niang",
+      "prenom": "Astou",
+      "telephone": "785646675",
+      "email": "famaaaaa@gmail.com",
+      "password": "passer123",
+      "id_role": "3",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1755601089/apcrnhlijzqlepf52k18.jpg"
+    },
+    {
+      "id": "cfa4",
+      "nom": "Diallo",
+      "prenom": "enseignant ",
+      "email": "diallo@gmail.com",
+      "telephone": "777777777",
+      "password": "passer123",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1755602768/czwmmoku7sq5c31bfv68.webp",
+      "id_role": "2",
+      "deleted": "false",
+      "deletedAt": null
+    },
+    {
+      "id": "656e",
+      "nom": "dfghjk",
+      "prenom": "xcvbn",
+      "email": "bbb@gmail.com",
+      "telephone": "776549899",
+      "password": "admin123",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1755692267/dozhlx3ahquhqphvr1t0.png",
+      "id_role": "2",
+      "deleted": "false",
+      "deletedAt": null
     }
   ],
   "roles": [
@@ -144,7 +191,7 @@
     {
       "titre": "Vol de Nuit",
       "auteur": "Phedre",
-      "id_format": "3",
+      "id_format": "1",
       "id_type": "3",
       "categorieId": "2",
       "niveauId": "1",
@@ -154,7 +201,7 @@
       "specialite": "Developpement",
       "statut": "En attente",
       "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1755449082/cvobrfjcrwltvpugc3kk.jpg",
-      "chemin_fichier": "Doc4.docx",
+      "chemin_fichier": "saint_exupery_vol_de_nuit.pdf",
       "id": "9c70"
     },
     {
@@ -170,11 +217,11 @@
       "specialite": "",
       "statut": "",
       "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1755449111/humon1zhxnfsgbgujnva.jpg",
-      "chemin_fichier": "English For IT students L1.pdf",
-      "id": "8163"
+      "chemin_fichier": "Mariama Bâ - Une si longue lettre (1).pdf",
+      "id": "8163",
+      "deleted": false
     },
     {
-      "id": "c49f",
       "titre": "Soumission",
       "auteur": "Rosa Parc",
       "id_format": "1",
@@ -187,10 +234,10 @@
       "specialite": "",
       "statut": "",
       "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1755449191/dhtfwgntorwbr1ops5yt.jpg",
-      "chemin_fichier": "Document sans titre (4).pdf"
+      "chemin_fichier": "ROSA_PARKS.pdf",
+      "id": "c49f"
     },
     {
-      "id": "2f19",
       "titre": "Fleur Sauvage",
       "auteur": "Remi Giordano",
       "id_format": "1",
@@ -203,28 +250,38 @@
       "specialite": "",
       "statut": "",
       "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1755449396/bnakx1vybghxazi49go9.jpg",
-      "chemin_fichier": "Projet AgroVital.pdf",
-      "deleted": false
+      "chemin_fichier": "9782307592587.pdf",
+      "id": "2f19"
+    },
+    {
+      "id": "3853",
+      "titre": "livre 1",
+      "auteur": "fatima",
+      "id_format": "3",
+      "id_type": "3",
+      "categorieId": "4c48",
+      "niveauId": "2",
+      "matiereId": "3",
+      "utilisateurId": null,
+      "annee": "2025",
+      "specialite": "marketing",
+      "statut": "En attente",
+      "image": "https://res.cloudinary.com/dof0tmlgt/image/upload/v1755602466/iqmanagjaxoimet6vknh.jpg",
+      "chemin_fichier": "DOCUMENTATION SQL.docx"
     }
   ],
   "telechargements": [
     {
-      "id": "1",
-      "id_livre": "1",
+      "id": "bee2",
+      "id_livre": "9c70",
       "id_utilisateur": "1e00",
-      "date_telechargement": "2023-10-01T10:00:00Z"
+      "date_telechargement": "2025-08-20T00:06:00.792Z"
     },
     {
-      "id": "3",
-      "id_livre": "1",
-      "id_utilisateur": "543c",
-      "date_telechargement": "2023-10-03T12:30:00Z"
-    },
-    {
-      "id": "2387",
+      "id": "70a5",
       "id_livre": "8163",
       "id_utilisateur": "1e00",
-      "date_telechargement": "2025-08-16T21:45:40.974Z"
+      "date_telechargement": "2025-08-20T00:06:19.298Z"
     }
   ],
   "categories": [
@@ -233,53 +290,51 @@
       "id": "1"
     },
     {
-      "nom": "Mathématiqu",
-      "id": "2",
-      "deleted": false
+      "nom": "Mathématique",
+      "id": "2"
     },
     {
-      "id": "4c48",
-      "nom": "Fatima",
-      "deleted": false
+      "nom": "Litterature",
+      "id": "4c48"
     }
   ],
   "niveaux": [
     {
-      "id": 1,
+      "id": "1",
       "libelle": "Licence 1"
     },
     {
-      "id": 2,
+      "id": "2",
       "libelle": "Licence 2"
     },
     {
-      "id": 3,
+      "id": "3",
       "libelle": "Licence 3"
     },
     {
-      "id": 4,
+      "id": "4",
       "libelle": "Master"
     }
   ],
   "matieres": [
     {
-      "id": 1,
+      "id": "1",
       "nom_matiere": "Analyse Numérique"
     },
     {
-      "id": 2,
+      "id": "2",
       "nom_matiere": "Machine Learning"
     },
     {
-      "id": 3,
+      "id": "3",
       "nom_matiere": "Algorithmique"
     },
     {
-      "id": 4,
+      "id": "4",
       "nom_matiere": "Physique Moderne"
     },
     {
-      "id": 5,
+      "id": "5",
       "nom_matiere": "Systèmes Intelligents"
     }
   ],
@@ -303,33 +358,63 @@
       "utilisateurId": null,
       "deleted": false,
       "deletedAt": null
+    },
+    {
+      "id": "3ac0",
+      "id_livre": "9c70",
+      "annee": "2025",
+      "specialite": "Developpement",
+      "statut": "En attente",
+      "utilisateurId": null,
+      "deleted": false,
+      "deletedAt": null
+    },
+    {
+      "id": "b44b",
+      "id_livre": "9c70",
+      "annee": "2025",
+      "specialite": "Developpement",
+      "statut": "En attente",
+      "utilisateurId": null,
+      "deleted": false,
+      "deletedAt": null
+    },
+    {
+      "id": "3de0",
+      "id_livre": "3853",
+      "annee": "2025",
+      "specialite": "marketing",
+      "statut": "En attente",
+      "utilisateurId": null,
+      "deleted": false,
+      "deletedAt": null
     }
   ],
   "types": [
     {
-      "id": 1,
+      "id": "1",
       "libelle": "Livre de cours"
     },
     {
-      "id": 2,
+      "id": "2",
       "libelle": "Livre d'exercices"
     },
     {
-      "id": 3,
+      "id": "3",
       "libelle": "Mémoire"
     }
   ],
   "formats": [
     {
-      "id": 1,
+      "id": "1",
       "extension": "PDF"
     },
     {
-      "id": 2,
+      "id": "2",
       "extension": "EPUB"
     },
     {
-      "id": 3,
+      "id": "3",
       "extension": "DOCX"
     }
   ],
@@ -341,16 +426,16 @@
       "date_ajout": "2023-10-06T09:15:00Z"
     },
     {
-      "id": "9a77",
-      "id_livre": "8163",
-      "id_utilisateur": "1e00",
-      "date_ajout": "2025-08-16T22:12:48.542Z"
+      "id": "a23f",
+      "id_livre": "9c70",
+      "id_utilisateur": "c6a8",
+      "date_ajout": "2025-08-19T11:07:50.340Z"
     },
     {
-      "id": "8a03",
+      "id": "ac20",
       "id_livre": "9c70",
       "id_utilisateur": "1e00",
-      "date_ajout": "2025-08-17T16:37:28.234Z"
+      "date_ajout": "2025-08-20T12:44:34.100Z"
     }
   ]
 }

@@ -29,7 +29,7 @@ export class Modal {
     if (this.onCloseCallback) {
       this.onCloseCallback();
     }
-    return this; // Permet le chaînage
+    return this; 
   }
 
   getElement() {

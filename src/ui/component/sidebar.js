@@ -38,7 +38,7 @@ export default class Sidebar {
             <span>Lister les catégories</span>
           </a>
         
-          <a href="#add-enseignant" class="flex items-center p-2 rounded-lg ${getActiveClass('#enseignants')} transition-colors">
+          <a href="#add-enseignant" class="flex items-center p-2 rounded-lg ${getActiveClass('#add-enseignant')} transition-colors">
             <i class="fa fa-chalkboard-teacher mr-3 text-xs"></i>
             <span>Lister les enseignants</span>
           </a>

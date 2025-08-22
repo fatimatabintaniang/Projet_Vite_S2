@@ -8,7 +8,7 @@ import { AuthService } from "../../../services/authService.js";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 
-
+// Fonction pour générer les icônes
 const ICONS = {
   add: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
@@ -16,6 +16,7 @@ const ICONS = {
 };
 
 export class LivresScreen {
+
   constructor(container) {
     this.container = container;
     this.livreService = new LivreService();
@@ -34,6 +35,8 @@ export class LivresScreen {
     this.selectedFormat = '';
   }
 
+  // Fonction d'initialisation
+  // Charge les données initiales et configure les événements
   async render() {
     try {
 
@@ -84,6 +87,8 @@ export class LivresScreen {
         </div>`;
     }
   }
+
+  // Fonction pour générer les contrôles de la page (boutons, filtres, etc.)
  renderControls() {
   return `
     <div class="items-center p-6">
@@ -163,6 +168,8 @@ export class LivresScreen {
     </div>
   `;
 }
+
+  // Fonction pour afficher la liste des livres
   renderList(livres) {
     if (!livres.length) {
       this.container.innerHTML = `
@@ -227,6 +234,7 @@ export class LivresScreen {
 
   }
 
+  // Fonction pour lier les événements de recherche
   bindSearchInput() {
     const searchInput = this.container.querySelector("#search-input");
     if (searchInput) {
@@ -250,6 +258,7 @@ export class LivresScreen {
     }
   }
 
+  // Fonction pour lier les événements des boutons d'action (éditer, supprimer, restaurer, détails)
   bindFilters() {
     // Filtre par catégorie
     const categoryFilter = this.container.querySelector("#filter-category");
@@ -287,7 +296,7 @@ export class LivresScreen {
   }
   }
 
-
+// Fonction pour lier les événements de basculement de vue (actifs/corbeille)
   bindViewToggle() {
     const buttons = this.container.querySelectorAll(".tab");
     buttons.forEach(btn =>
@@ -301,6 +310,8 @@ export class LivresScreen {
     );
   }
 
+
+  // Fonction pour lier le bouton d'ajout de livre
   bindAddButton() {
     const btnAdd = this.container.querySelector("#btn-add");
     if (btnAdd) {
@@ -308,6 +319,7 @@ export class LivresScreen {
     }
   }
 
+// Fonction pour lier le bouton de téléchargement
 bindDownloadButton() {
     const btnDownload = this.container.querySelector("#btn-download");
     if (btnDownload) {
@@ -349,6 +361,7 @@ bindDownloadButton() {
     }
 }
 
+// fonction pour generer un PDF avec jsPDF et autoTable
 async generateBooksPDF(livres) {
     // Créer un nouveau document PDF
     const doc = new jsPDF();
@@ -397,7 +410,7 @@ async generateBooksPDF(livres) {
     doc.save(`liste-livres_${new Date().toISOString().slice(0, 10)}.pdf`);
 }
 
-
+// Fonction pour lier les événements des boutons d'action (éditer, supprimer, restaurer, détails)
   bindActionButtons() {
     const buttons = this.container.querySelectorAll("[data-action]");
     buttons.forEach(btn => {
@@ -440,6 +453,8 @@ async generateBooksPDF(livres) {
     });
   }
 
+
+  // Fonction pour afficher les détails d'un livre dans une modale
   async showDetails(livre) {
     try {
       // Charger toutes les données nécessaires
@@ -457,7 +472,7 @@ async generateBooksPDF(livres) {
       this.matieres = matieresRes.data || [];
       this.types = typesRes.data || [];
       this.formats = formatsRes.data || [];
-      this.memoires = memoiresRes || []; // <-- memoiresRes contient déjà data
+      this.memoires = memoiresRes || []; // 
 
       // Vérifier si le livre est un mémoire
       const isMemoire = livre.id_type == "3";
@@ -528,6 +543,8 @@ async generateBooksPDF(livres) {
     }
   }
 
+
+// Fonction pour afficher le formulaire d'ajout/édition de livre
   async showAddForm(livreToEdit = null) {
     try {
       const [categoriesRes, niveauxRes, matieresRes, typesRes, formatsRes, utilisateursRes] = await Promise.all([
@@ -549,7 +566,7 @@ async generateBooksPDF(livres) {
       const modal = new Modal({
         title: livreToEdit ? "Modifier le livre" : "Ajouter un livre",
         content: `
-      <form id="add-livre-form" class="space-y-6 overflow-y-auto h-[60vh]">
+      <form id="add-livre-form" class="space-y-6 overflow-y-auto h-[70vh] ">
         <!-- Titre et Auteur -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -663,7 +680,7 @@ async generateBooksPDF(livres) {
         <!-- Boutons -->
         <div class="flex justify-end space-x-2 pt-4">
           <button type="button" id="cancel-add" class="px-4 py-2 bg-gray-300 rounded">Annuler</button>
-          <button type="submit" class="submit-btn px-4 py-2 bg-indigo-600 text-white rounded">${livreToEdit ? "Modifier" : "Ajouter"}</button>
+          <button type="submit" class="submit-btn px-4 py-2 bg-[#873A0E] text-white rounded">${livreToEdit ? "Modifier" : "Ajouter"}</button>
         </div>
       </form>
       `,
@@ -707,7 +724,7 @@ async generateBooksPDF(livres) {
           statut: form.statut?.value
         };
 
-        // ✅ Validation
+        // Validation
         const rules = {
           titre: ["required", "min:3"],
           auteur: ["required", "min:3"],
@@ -725,6 +742,16 @@ async generateBooksPDF(livres) {
         }
 
         const errors = validate(formData, rules);
+          // Vérification de l'unicité du titre
+  const isTitreUnique = await this.livreService.checkTitreUnique(
+    formData.titre, 
+    livreToEdit?.id
+  );
+  
+  if (!isTitreUnique) {
+    errors.titre = "Ce titre est déjà utilisé par un autre livre";
+  }
+
         form.querySelectorAll("[data-error]").forEach(p => p.textContent = "");
         Object.keys(errors).forEach(field => {
           const p = form.querySelector(`[data-error="${field}"]`);

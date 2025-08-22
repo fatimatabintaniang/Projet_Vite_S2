@@ -5,6 +5,7 @@ export class RoleService {
     this.api = new ApiClient("http://localhost:3000");
   }
 
+  // Méthode pour lister tous les rôles
   async list() {
     try {
       const response = await this.api.get("roles");

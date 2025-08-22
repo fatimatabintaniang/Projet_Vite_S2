@@ -1,4 +1,3 @@
-// src/services/livreService.js
 import { ApiClient } from "../data/Api-Client.js";
 
 export default class LivreService {
@@ -6,6 +5,7 @@ export default class LivreService {
         this.api = new ApiClient(baseUrl);
     }
 
+    // Méthodes pour la gestion des livres
 async getAll() {
   try {
     const response = await this.api.get("livres");
@@ -17,6 +17,7 @@ async getAll() {
 }
 
 
+// Méthode pour récupérer tous les livres avec leurs catégories, niveaux et matières
     async getAllLivres() {
         try {
             const response = await this.api.get('livres?_expand=categorie&_expand=niveau&_expand=matiere');
@@ -27,6 +28,8 @@ async getAll() {
         }
     }
 
+
+    // Méthode pour récupérer un livre par son ID avec ses détails
     async getLivreById(id) {
         try {
             const response = await this.api.get(`livres/${id}?_expand=categorie&_expand=niveau&_expand=matiere`);
@@ -37,6 +40,8 @@ async getAll() {
         }
     }
 
+
+    // Methode pour creer un livre
     async createLivre(livreData) {
         try {
             const response = await this.api.post('livres', livreData);
@@ -47,6 +52,7 @@ async getAll() {
         }
     }
 
+    // Méthode pour mettre à jour un livre
     async updateLivre(id, livreData) {
         try {
             const response = await this.api.put(`livres/${id}`, livreData);
@@ -57,6 +63,7 @@ async getAll() {
         }
     }
 
+    // Méthode pour supprimer un livre
     async deleteLivre(id) {
         try {
             const response = await this.api.delete(`livres/${id}`);
@@ -67,6 +74,8 @@ async getAll() {
         }
     }
 
+
+    // Méthode pour supprimer un livre en mode "soft delete"
     async softDeleteLivre(id) {
         try {
             const response = await this.api.patch(`livres/${id}`, { deleted: true });
@@ -77,6 +86,8 @@ async getAll() {
         }
     }
 
+
+    // Méthode pour restaurer un livre supprimé
     async restoreLivre(id) {
         try {
             const response = await this.api.patch(`livres/${id}`, { deleted: false });
@@ -87,6 +98,8 @@ async getAll() {
         }
     }
 
+
+    // Méthode pour récupérer toutes les catégories
     async getCategories() {
         try {
             const response = await this.api.get('categories');
@@ -97,6 +110,7 @@ async getAll() {
         }
     }
 
+    // Méthode pour récupérer tous les niveaux
     async getNiveaux() {
         try {
             const response = await this.api.get('niveaux');
@@ -107,6 +121,7 @@ async getAll() {
         }
     }
 
+    // Méthode pour récupérer toutes les matières
     async getMatieres() {
         try {
             const response = await this.api.get('matieres');
@@ -117,6 +132,7 @@ async getAll() {
         }
     }
 
+    // Méthode pour récupérer tous les types
     async getTypes() {
         try {
             const response = await this.api.get('types');
@@ -127,6 +143,8 @@ async getAll() {
         }
     }
 
+
+    // Méthode pour récupérer tous les formats
     async getFormats() {
         try {
             const response = await this.api.get('formats');
@@ -137,6 +155,7 @@ async getAll() {
         }
     }
 
+    // Méthode pour uploader une image
     async uploadImage(file) {
         return new Promise((resolve) => {
             setTimeout(() => {
@@ -146,6 +165,7 @@ async getAll() {
         });
     }
 
+    // Methode pour afficher le total des livres
     async getTotalLivres() {
         try {
             const response = await this.api.get('livres');
@@ -156,7 +176,9 @@ async getAll() {
         }
     }
 
-async getMemoireStats() {
+
+
+    async getMemoireStats() {
     try {
         // 1. Récupérer les mémoires et leurs téléchargements
         const [memoiresRes, telechargementsRes] = await Promise.all([
@@ -235,6 +257,9 @@ async getMemoireStats() {
     }
 }
 
+
+
+// Méthode pour récupérer les livres populaires
 async getPopularBooks(limit = 5) {
     try {
         const response = await this.api.get(
@@ -248,11 +273,25 @@ async getPopularBooks(limit = 5) {
 }
 
 
+// Méthode pour vérifier si un titre de livre est unique
+
+  async checkTitreUnique(titre, excludeId = null) {
+  const livres = await this.getAllLivres();
+  return !livres.some(l => 
+    l.titre.toLowerCase() === titre.toLowerCase() && 
+    (excludeId ? l.id !== excludeId : true)
+  );
+}
+
+
+
 
     // =============================================
     // NOUVELLES MÉTHODES SPÉCIFIQUES POUR ÉTUDIANTS
     // =============================================
 
+
+    // Méthode pour afficher les livres récents
     async getRecentBooks(limit = 5) {
         try {
             const response = await this.api.get(
@@ -265,7 +304,8 @@ async getPopularBooks(limit = 5) {
         }
     }
 
-    async getPopularBooks(limit = 5) {
+    // Methode pour récupérer les livres populaires
+    async getPopularBooks(limit = 2) {
         try {
             const response = await this.api.get(
                 `livres?_expand=categorie&_expand=niveau&_expand=matiere&_sort=downloadCount&_order=desc&_limit=${limit}`
@@ -278,6 +318,7 @@ async getPopularBooks(limit = 5) {
     }
 
 
+    // Méthode pour récupérer les livres recommandés
     async getRecommendedBooks(niveauId, matiereIds = [], limit = 5) {
         try {
             let url = `livres?niveauId=${niveauId}&_expand=categorie&_expand=niveau&_expand=matiere&_limit=${limit}`;
@@ -295,6 +336,7 @@ async getPopularBooks(limit = 5) {
     }
 
 
+    // Méthode pour rechercher des livres par titre ou auteur
     async searchBooks(query) {
         try {
             const response = await this.api.get(
@@ -308,6 +350,26 @@ async getPopularBooks(limit = 5) {
     }
 
 
+    // Méthode pour récupérer les livres d'un utilisateur
+    async searchLivres(searchTerm) {
+    try {
+        // Récupère tous les livres et filtre localement
+        const allLivres = await this.getLivresForStudent();
+        
+        return allLivres.filter(livre => {
+            const searchLower = searchTerm.toLowerCase();
+            return (
+                (livre.titre && livre.titre.toLowerCase().includes(searchLower)) ||
+                (livre.auteur && livre.auteur.toLowerCase().includes(searchLower))
+            );
+        });
+    } catch (error) {
+        console.error("Erreur searchLivres:", error);
+        return [];
+    }
+}
+
+    // Méthode pour incrementer le compteur de téléchargements
     async incrementDownloadCount(livreId) {
         try {
             // D'abord récupérer le livre pour obtenir le compteur actuel
@@ -327,6 +389,7 @@ async getPopularBooks(limit = 5) {
     }
 
 
+    // Méthode pour récupérer les livres par catégorie
     async getBooksByCategory(categorieId) {
         try {
             const response = await this.api.get(
@@ -339,6 +402,7 @@ async getPopularBooks(limit = 5) {
         }
     }
 
+    // Methode pour recuperer les livres pour les étudiants
     async getLivresForStudent() {
     try {
         const response = await this.api.get('livres?deleted=false&_expand=categorie&_expand=niveau');
@@ -349,6 +413,9 @@ async getPopularBooks(limit = 5) {
     }
 }
 
+
+
+// Methode pour télécharger un fichier
 async downloadFile(id) {
     const livre = await this.getById(id);
     if (livre && livre.chemin_fichier) {

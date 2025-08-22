@@ -10,31 +10,90 @@ export default class TelechargementsScreen {
         this.livreSvc = new LivreService();
     }
 
-  async render() {
- const livres = await this.livreSvc.getAll();
-    const telechargeables = livres.filter(l => l.chemin_fichier && !l.deleted);
+    async render() {
+        const user = this.authSvc.getCurrentUser();
+        if (!user || !user.id) {
+            this.container.innerHTML = `<p class="p-4 text-red-500">Veuillez vous connecter pour voir vos téléchargements</p>`;
+            return;
+        }
 
-     this.container.innerHTML = `
-      <div class="p-4">
-        <h1 class="text-xl font-bold mb-4">Mes Téléchargements</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          ${telechargeables.map(livre => `
-            <div class="bg-white rounded-lg shadow-md p-4">
-              <img src="${livre.image}" alt="${livre.titre}" class="w-full h-40 object-cover rounded-md mb-2">
-              <h2 class="text-lg font-semibold">${livre.titre}</h2>
-              <p class="text-gray-600">Auteur: ${livre.auteur}</p>
-              <button 
-                class="mt-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
-                onclick="window.open('${livre.chemin_fichier}', '_blank')"
-              >
-                Télécharger
-              </button>
+        // Récupérer tous les livres ET les téléchargements de l'utilisateur
+        const [livres, telechargements] = await Promise.all([
+            this.livreSvc.getAll(),
+            this.telechargementSvc.getUserDownloads(user.id)
+        ]);
+
+        // Filtrer seulement les livres qui ont été téléchargés par cet utilisateur
+        const idsLivresTelecharges = telechargements.map(t => t.id_livre);
+        const livresTelecharges = livres.filter(l => 
+            idsLivresTelecharges.includes(l.id) && l.chemin_fichier && !l.deleted
+        );
+
+        this.container.innerHTML = `
+            <div class="p-4">
+                <h1 class="text-xl font-bold mb-4 text-[#873A0E]">Mes Téléchargements</h1>
+                ${livresTelecharges.length === 0 ? 
+                    `<p class="text-gray-600">Aucun téléchargement trouvé.</p>` :
+                    `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="telechargementsContainer">
+                        ${livresTelecharges.map(livre => `
+                            <div class="bg-white rounded-lg shadow-md p-4" data-id="${livre.id}">
+                                <img src="${livre.image}" alt="${livre.titre}" class="w-full h-40 object-cover rounded-md mb-2">
+                                <h2 class="text-lg font-semibold">${livre.titre}</h2>
+                                <p class="text-gray-600">Auteur: ${livre.auteur}</p>
+                                <button class="lire-btn flex items-center text-sm bg-[#F998A9] text-white px-3 py-2 rounded-md hover:bg-[#e87f92] mt-2"
+                                        data-fichier="${livre.chemin_fichier}">
+                                    Lire
+                                </button>
+                            </div>
+                        `).join("")}
+                    </div>`
+                }
             </div>
-          `).join("")}
-        </div>
-      </div>
-    `;
-  }
+        `;
+
+        this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+        document.querySelectorAll('.lire-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const livreElement = e.target.closest('[data-id]');
+                const livreId = livreElement ? livreElement.dataset.id : null;
+                const fichier = e.target.getAttribute('data-fichier');
+                
+                this.openBookReader(livreId, fichier);
+            });
+        });
+    }
+
+    openBookReader(livreId, fichier) {
+        const extension = fichier.split('.').pop().toLowerCase();
+        
+        if (extension === 'pdf') {
+            const pdfUrl = `${window.location.origin}/uploads/${fichier}`;
+            window.open(pdfUrl, '_blank');
+        } else {
+            const fileUrl = encodeURIComponent(`${window.location.origin}/uploads/${fichier}`);
+            const googleViewerUrl = `https://docs.google.com/viewer?url=${fileUrl}&embedded=true`;
+            
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Lecteur de document</title>
+                    <style>
+                        body, html { margin: 0; padding: 0; height: 100%; }
+                        iframe { width: 100%; height: 100%; border: none; }
+                    </style>
+                </head>
+                <body>
+                    <iframe src="${googleViewerUrl}"></iframe>
+                </body>
+                </html>
+            `);
+        }
+    }
 
     async loadTelechargements(userId) {
         try {
